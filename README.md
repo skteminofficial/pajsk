@@ -1,0 +1,2 @@
+# pajsk
+REKOD PAJSK -SEMAKAN IBU BAPA
