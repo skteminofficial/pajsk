@@ -1,37 +1,1583 @@
-<!doctype html><html lang="ms"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#15467a"><title>Pengurusan PAJSK Guru | SK Temin</title>
-<style>
-:root{--b:#175b9c;--bd:#103d69;--g:#08745b;--red:#c9233f;--gold:#f4b400;--ink:#172a3d;--line:#d8e5ef}*{box-sizing:border-box}body{margin:0;background:linear-gradient(155deg,#edf6ff,#f7fafc);font-family:Inter,Arial,sans-serif;color:var(--ink)}.wrap{max-width:1100px;margin:auto;padding:14px}.hero{padding:22px;border-radius:24px;background:linear-gradient(135deg,var(--bd),var(--b));color:#fff;box-shadow:0 14px 35px #15467a2b}.hero h1{margin:0;font-size:22px}.hero p{margin:6px 0 0;font-size:12px;opacity:.85}.card{background:#fff;border:1px solid var(--line);border-radius:20px;padding:17px;margin-top:13px;box-shadow:0 8px 24px #174d4020}.tabs{display:flex;gap:8px;margin:14px 0}.tab{flex:1;border:0;border-radius:14px;padding:12px;background:#fff;color:#456078;font-weight:900}.tab.active,.btn{background:var(--b);color:#fff}.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}.full{grid-column:1/-1}label{display:block;font-size:11px;font-weight:900;color:#486273;margin-bottom:6px}input,select,textarea{width:100%;padding:12px;border:1.5px solid #d5e1e9;border-radius:12px;background:#fbfdff;font:inherit;font-size:13px;outline:none}#bulkActivity,#bulkSender,#fClass,#reviewer,#announcementBy,#announcementText{text-transform:uppercase}.btn{border:0;border-radius:13px;padding:11px 14px;font-weight:900;cursor:pointer}.btn:disabled{opacity:.55}.btn.green{background:var(--g)}.btn.red{background:var(--red)}.btn.soft{background:#e8f2fb;color:var(--bd)}.btn.gold{background:#fff1c2;color:#7b5300}.hide{display:none!important}.status{padding:11px;border-radius:12px;margin-top:10px;background:#e8f2fb;color:#174b78;font-size:12px;font-weight:800}.err{background:#feecef;color:#a31c34}.ok{background:#e8f8ef;color:#176638}.suggest{display:grid;gap:7px;margin-top:8px}.candidate{border:1px solid var(--line);background:#fff;border-radius:12px;padding:10px;text-align:left;font-weight:800}.candidate small{display:block;color:var(--b);margin-top:3px}.notice{background:#fff7df;border:1px solid #f2d589;color:#76530c;padding:12px;border-radius:14px;font-size:12px;line-height:1.5}.filters{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}.scroll{overflow:auto}table{width:100%;border-collapse:collapse;font-size:11px}th,td{padding:9px;border-bottom:1px solid #e5edf3;text-align:left;vertical-align:top}th{background:#edf5fb}.pill{display:inline-block;padding:5px 8px;border-radius:999px;background:#fff1d6;color:#805300;font-weight:900;font-size:10px}.pill.done{background:#dcfce7;color:#166534}.actions{display:flex;gap:6px;flex-wrap:wrap}.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:9px}.stat{padding:14px;border-radius:16px;background:#f3f8fc;border:1px solid #dbe9f3}.stat b{display:block;font-size:24px;color:var(--b)}.stat span{font-size:10px;font-weight:900;color:#587083}.category-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.category-card{border:1px solid var(--line);border-radius:16px;padding:13px;background:#fbfdff}.category-card h3{font-size:13px;margin:0 0 8px;color:var(--b)}.name-row{padding:8px 0;border-top:1px dashed #dbe5ed;font-size:11px}.name-row:first-of-type{border-top:0}.rank{display:flex;gap:9px;align-items:flex-start;padding:10px;border-radius:14px;background:linear-gradient(135deg,#fff9df,#fff);border:1px solid #f4dc8a;margin-top:8px}.rank-num{width:30px;height:30px;display:grid;place-items:center;border-radius:50%;background:#f4b400;color:#fff;font-weight:950}.announcement-item{border:1px solid #ffc7cf;background:#fff4f5;border-radius:15px;padding:12px;margin-top:9px}.announcement-item.off{opacity:.58;filter:grayscale(.5)}.ticker{margin:12px 0 0;display:flex;align-items:center;overflow:hidden;border:2px solid #ffd452;border-radius:15px;background:linear-gradient(90deg,#a70f2d,#ef1746);color:#fff;box-shadow:0 8px 22px #a70f2d42}.ticker-label{position:relative;z-index:2;flex:none;padding:11px;background:#ffd452;color:#641020;font-size:11px;font-weight:950}.ticker-window{overflow:hidden;white-space:nowrap}.ticker-track{display:inline-block;padding-left:100%;font-size:12px;font-weight:950;animation:tick var(--ticker-time,28s) linear infinite}.ticker-track span{margin-right:55px}@keyframes tick{to{transform:translateX(-100%)}}.modal{position:fixed;inset:0;z-index:50;background:#07192bb8;display:flex;align-items:center;justify-content:center;padding:14px}.modal-box{width:min(680px,100%);max-height:92vh;overflow:auto;background:#fff;border-radius:22px;padding:18px;box-shadow:0 20px 60px #0005}.modal-head{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:12px}.modal-head h3{margin:0}.spinner{display:inline-block;width:14px;height:14px;border:2px solid #fff8;border-top-color:#fff;border-radius:50%;animation:s .8s linear infinite;vertical-align:-2px;margin-right:5px}@keyframes s{to{transform:rotate(360deg)}}
-.tab{position:relative}.badge{display:none;min-width:21px;height:21px;padding:0 6px;margin-left:5px;align-items:center;justify-content:center;border-radius:999px;background:#ef1746;color:#fff;font-size:10px;font-weight:950;box-shadow:0 0 0 3px #fff}.badge.show{display:inline-flex}.tab.active .badge{box-shadow:0 0 0 3px var(--b)}table{min-width:760px}
-@media(max-width:720px){.grid,.filters,.category-grid,.stats{grid-template-columns:1fr}.tabs{display:grid;grid-template-columns:1fr 1fr}.wrap{padding:9px}.card{padding:13px}.ticker-label{padding:10px 7px}}
-</style></head><body><main class="wrap">
-<header class="hero"><h1>📋 Pengurusan PAJSK Guru</h1><p>SK Temin • Guru Kelas, Penyelaras PAJSK &amp; SU Kokurikulum</p></header>
-<aside id="teacherTicker" class="ticker hide"><div class="ticker-label">📢 HEBAHAN</div><div class="ticker-window"><div id="teacherTickerTrack" class="ticker-track"></div></div></aside>
-<section id="loginCard" class="card"><h3>Log Masuk Guru</h3><div class="grid"><div><label>PIN PORTAL GURU</label><input id="loginPin" type="password" inputmode="numeric"></div><div style="align-self:end"><button class="btn" id="loginBtn">Masuk</button></div></div><div id="loginMessage"></div></section>
-<div id="app" class="hide"><nav class="tabs"><button class="tab" data-view="dashboard">Dashboard</button><button class="tab" data-view="review">Perlu Disemak <span id="reviewBadge" class="badge" aria-label="0 rekod perlu disemak">0</span></button><button class="tab" data-view="bulk">Hantar Pukal</button><button class="tab" data-view="announcements">Urus Hebahan</button></nav>
-<section id="dashboard" class="view"><div class="card"><div id="stats" class="stats"></div><div class="filters" style="margin-top:13px"><select id="fClass"><option value="">Semua kelas</option></select><select id="fCategory"><option value="">Semua kategori</option><option>Sukan dan Permainan</option><option>Unit Beruniform</option><option>Kelab dan Persatuan</option></select><select id="fLevel"><option value="">Semua peringkat</option><option>Sekolah</option><option>Zon</option><option>Daerah</option><option>Negeri</option><option>Kebangsaan</option><option>Antarabangsa</option></select><button class="btn" id="reloadBtn">Tapis / Muat Semula</button></div></div><div class="card"><h2 style="margin:0 0 5px;font-size:17px">🏆 Calon Tokoh Kokurikulum — Top 5</h2><p style="margin:0;color:#6b7e8d;font-size:11px">Sijil penyertaan tidak dikira. Ranking hanya berdasarkan sijil pencapaian mengikut peringkat tertinggi dan kedudukan terbaik.</p><div id="topFive"></div></div><div class="card"><h2 style="margin-top:0;font-size:17px">Senarai Murid Mengikut Komponen</h2><div id="categoryLists" class="category-grid"></div></div></section>
-<section id="review" class="view hide"><div class="card"><h2 style="margin-top:0;font-size:17px">Rekod Menunggu Semakan</h2><p style="font-size:11px;color:#667">Hanya rekod yang belum selesai dipaparkan di sini. Rekod yang telah disahkan tidak lagi mempunyai butang Sahkan/Tolak.</p></div><div class="card scroll"><table><thead><tr><th>Kod/Tarikh</th><th>Murid</th><th>Aktiviti</th><th>Cadangan</th><th>Tindakan</th></tr></thead><tbody id="records"></tbody></table></div></section>
-<section id="bulk" class="view hide"><div class="card"><div class="notice"><b>Hantar pukal:</b> Isi maklumat pertandingan sekali, pilih semua peserta dan muat naik satu sijil contoh sahaja.</div><form id="bulkForm" class="grid" style="margin-top:14px"><div><label>NAMA GURU / PENGURUS</label><input id="bulkSender" required></div><div><label>NAMA PERTANDINGAN / PROGRAM</label><input id="bulkActivity" required></div><div><label>TARIKH AKTIVITI</label><input id="bulkDate" type="date"></div><div><label>KATEGORI</label><select id="bulkCategory"><option>Tidak pasti</option><option>Sukan dan Permainan</option><option>Unit Beruniform</option><option>Kelab dan Persatuan</option></select></div><div><label>PERINGKAT</label><select id="bulkLevel"><option>Tidak pasti</option><option>Sekolah</option><option>Zon</option><option>Daerah</option><option>Negeri</option><option>Kebangsaan</option><option>Antarabangsa</option></select></div><div><label>KEPUTUSAN</label><select id="bulkAchievement"><option>Penyertaan sahaja</option><option>Mendapat kedudukan</option><option>Tidak pasti</option></select></div><div id="bulkPositionWrap" class="hide"><label>KEDUDUKAN</label><select id="bulkPosition"><option>Johan</option><option>Naib Johan</option><option>Ketiga</option><option>Keempat</option><option>Kelima</option><option>Lain-lain</option></select></div><div class="full"><label>CARI PESERTA (MAKSIMUM 30)</label><input id="bulkQuery" placeholder="Taip sekurang-kurangnya 3 huruf"><div id="bulkSuggestions" class="suggest"></div><div id="bulkParticipants" class="suggest"></div></div><div class="full"><label>SIJIL CONTOH (JPG, PNG ATAU PDF • MAKS. 6 MB)</label><input id="bulkCertificate" type="file" accept="image/jpeg,image/png,application/pdf" required></div><button class="btn green full" id="bulkBtn">Hantar Semua Peserta</button></form><div id="bulkMessage"></div></div></section>
-<section id="announcements" class="view hide"><div class="card"><div class="notice"><b>Urus hebahan:</b> Hebahan aktif terus bergerak pada header Portal Guru dan halaman PAJSK. Gunakan bahagian ini hanya untuk tambah, edit atau nyahaktif.</div><form id="announcementForm" class="grid" style="margin-top:14px"><input id="announcementId" type="hidden"><div class="full"><label>TEKS HEBAHAN (MAKSIMUM 500 AKSARA)</label><textarea id="announcementText" rows="4" maxlength="500" required></textarea></div><div><label>DITERBITKAN OLEH</label><input id="announcementBy" required></div><div class="actions" style="align-self:end"><button class="btn red" id="announcementBtn">Terbitkan Hebahan</button><button type="button" class="btn soft hide" id="cancelAnnouncement">Batal Edit</button></div></form><div id="announcementMessage"></div></div><div class="card"><h3 style="margin-top:0">Senarai Hebahan</h3><div id="announcementList"></div></div></section></div></main>
-<div id="reviewModal" class="modal hide"><div class="modal-box"><div class="modal-head"><h3>Semakan Rekod PAJSK</h3><button type="button" class="btn soft" id="closeReview">✕</button></div><div id="reviewStudent" class="notice"></div><form id="reviewForm" class="grid" style="margin-top:12px"><input id="reviewCode" type="hidden"><input id="reviewStatus" type="hidden"><div><label>KATEGORI MUKTAMAD</label><select id="reviewCategory"><option>Tidak pasti</option><option>Sukan dan Permainan</option><option>Unit Beruniform</option><option>Kelab dan Persatuan</option></select></div><div><label>PERINGKAT MUKTAMAD</label><select id="reviewLevel"><option>Tidak pasti</option><option>Sekolah</option><option>Zon</option><option>Daerah</option><option>Negeri</option><option>Kebangsaan</option><option>Antarabangsa</option></select></div><div><label>KEPUTUSAN MUKTAMAD</label><select id="reviewResult"><option>Penyertaan sahaja</option><option>Mendapat kedudukan</option><option>Tidak pasti</option></select></div><div id="reviewPositionWrap"><label>KEDUDUKAN</label><select id="reviewPosition"><option value="">Tiada</option><option>Johan</option><option>Naib Johan</option><option>Ketiga</option><option>Keempat</option><option>Kelima</option><option>Lain-lain</option></select></div><div><label>NAMA PENYEMAK</label><input id="reviewer" required></div><div class="full"><label>CATATAN / ALASAN JIKA DITOLAK</label><textarea id="reviewNote" rows="3"></textarea></div><div class="full actions"><button type="submit" class="btn green" id="saveReview">Simpan Pengesahan</button><button type="button" class="btn soft" id="cancelReview">Batal</button></div></form><div id="reviewMessage"></div></div></div>
-<script src="./students.js"></script><script>
-const API='https://script.google.com/macros/s/AKfycbxVuNvJtVFh_sjVAPvChtmDjaofM15D063V6iKQQ3aSbwJw9c_ZZ_1OwY7E7c0e7U3D/exec',$=id=>document.getElementById(id);let pin='',selected=[],timer=null,pending=new Map(),allRows=[];
-if(new URLSearchParams(location.search).get('embed')==='1'){document.querySelector('.hero').classList.add('hide');document.querySelector('.wrap').style.padding='0'}
-const esc=v=>String(v||'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));function msg(id,t,type='ok'){const e=$(id);e.className='status '+type;e.textContent=t}function upper(id){$(id).addEventListener('input',e=>e.target.value=e.target.value.toUpperCase())}['bulkSender','bulkActivity','bulkQuery','announcementBy','announcementText','reviewer'].forEach(upper);[...new Set(PAJSK_STUDENTS.map(s=>s.kelas).filter(Boolean))].sort((a,b)=>a.localeCompare(b,'ms',{numeric:true})).forEach(k=>{const o=document.createElement('option');o.value=k;o.textContent=k;$('fClass').appendChild(o)});
-function call(action,payload={},timeout=75000){return new Promise((resolve,reject)=>{const token=Date.now().toString(36)+Math.random().toString(36).slice(2),frame=document.createElement('iframe'),form=document.createElement('form');frame.name='f_'+token;frame.className='hide';form.method='POST';form.action=API;form.target=frame.name;form.className='hide';payload._requestId=token;for(const [name,value] of Object.entries({action,requestId:token,payload:JSON.stringify(payload)})){const el=name==='payload'?document.createElement('textarea'):document.createElement('input');el.name=name;el.value=value;form.appendChild(el)}document.body.append(frame,form);const tid=setTimeout(()=>done(new Error('Sambungan mengambil masa terlalu lama. Cuba lagi.')),timeout);function done(err,data){clearTimeout(tid);pending.delete(token);form.remove();frame.remove();err?reject(err):resolve(data)}pending.set(token,done);form.submit()})}window.addEventListener('message',e=>{const r=e.data||{},done=pending.get(r.requestId);if(done)done(r.ok?null:new Error(r.error||'Tindakan gagal.'),r.result)});
-function show(v){document.querySelectorAll('.view').forEach(x=>x.classList.add('hide'));$(v).classList.remove('hide');document.querySelectorAll('.tab').forEach(x=>x.classList.toggle('active',x.dataset.view===v));if((v==='dashboard'||v==='review')&&pin)loadDashboard();if(v==='announcements'&&pin)loadAnnouncements()}document.querySelectorAll('.tab').forEach(b=>b.onclick=()=>show(b.dataset.view));
-async function login(p,auto=false){if(!p)return;try{const r=await call('adminLogin',{pin:p},30000);if(!r.ok){if(auto)localStorage.removeItem('pajskTeacherPin');else msg('loginMessage','PIN tidak betul.','err');return}pin=p;localStorage.setItem('pajskTeacherPin',p);$('loginCard').classList.add('hide');$('app').classList.remove('hide');await loadTicker();show('dashboard')}catch(e){if(!auto)msg('loginMessage',e.message,'err')}}$('loginBtn').onclick=async()=>{try{$('loginBtn').disabled=true;await login($('loginPin').value)}finally{$('loginBtn').disabled=false}};const savedPin=localStorage.getItem('pajskTeacherPin');if(savedPin)login(savedPin,true);
-async function loadTicker(){try{const items=(await call('getAnnouncements',{pin},30000)).filter(x=>x.active),box=$('teacherTicker');if(!items.length){box.classList.add('hide');return}const track=$('teacherTickerTrack');track.innerHTML=items.map(x=>'<span>● '+esc(x.message)+'</span>').join('');track.style.setProperty('--ticker-time',Math.max(24,items.reduce((n,x)=>n+x.message.length,0)*.17)+'s');box.classList.remove('hide')}catch(_){}}
-async function loadDashboard(){try{allRows=await call('getAdminRecords',{pin,filters:{}},60000);renderDashboard();renderPending()}catch(e){$('records').innerHTML='<tr><td colspan="5">'+esc(e.message)+'</td></tr>'}}$('reloadBtn').onclick=renderDashboard;['fClass','fCategory','fLevel'].forEach(id=>$(id).addEventListener('change',renderDashboard));
-function filteredApproved(){const c=$('fClass').value.trim().toUpperCase(),cat=$('fCategory').value,lev=$('fLevel').value;return allRows.filter(r=>r.status==='DISAHKAN'&&(!c||r.className.includes(c))&&(!cat||r.category===cat)&&(!lev||r.level===lev))}
-function renderDashboard(){const rows=filteredApproved(),unique=new Set(rows.map(r=>r.student+'|'+r.className));$('stats').innerHTML='<div class="stat"><b>'+unique.size+'</b><span>MURID DIREKODKAN</span></div><div class="stat"><b>'+rows.length+'</b><span>SIJIL DISAHKAN</span></div><div class="stat"><b>'+allRows.filter(r=>r.status==='MENUNGGU SEMAKAN'||r.status==='DALAM SEMAKAN').length+'</b><span>MENUNGGU SEMAKAN</span></div><div class="stat"><b>'+new Set(rows.map(r=>r.className)).size+'</b><span>KELAS TERLIBAT</span></div>';renderCategories(rows);renderTopFive(rows)}
-function renderCategories(rows){const cats=['Unit Beruniform','Kelab dan Persatuan','Sukan dan Permainan'],box=$('categoryLists');box.innerHTML='';cats.forEach(cat=>{const grouped={};rows.filter(r=>r.category===cat).forEach(r=>{const k=r.student+'|'+r.className;grouped[k]??={student:r.student,className:r.className,count:0,highest:r.level,max:levelScore[r.level]||0};grouped[k].count++;if((levelScore[r.level]||0)>grouped[k].max){grouped[k].max=levelScore[r.level]||0;grouped[k].highest=r.level}});const list=Object.values(grouped).sort((a,b)=>a.className.localeCompare(b.className)||a.student.localeCompare(b.student)),d=document.createElement('div');d.className='category-card';d.innerHTML='<h3>'+esc(cat)+' ('+list.length+' murid)</h3>'+(list.length?list.map(r=>'<div class="name-row"><b>'+esc(r.student)+'</b><br>'+esc(r.className)+' • Tertinggi: '+esc(r.highest)+' • '+r.count+' sijil</div>').join(''):'<small>Tiada rekod mengikut tapisan.</small>');box.appendChild(d)})}
-const levelScore={'Antarabangsa':7,'Kebangsaan':6,'Negeri':5,'Daerah':4,'Zon':3,'Sekolah':2,'Tidak pasti':0},positionScore={'Johan':5,'Naib Johan':4,'Ketiga':3,'Keempat':2,'Kelima':1};function renderTopFive(rows){const m={};rows.filter(r=>r.result==='Mendapat kedudukan'&&Boolean(r.position)).forEach(r=>{const k=r.student+'|'+r.className;m[k]??={name:r.student,className:r.className,count:0,positionPoints:0,highest:r.level,maxLevel:levelScore[r.level]||0};m[k].count++;m[k].positionPoints+=positionScore[r.position]||0;if((levelScore[r.level]||0)>m[k].maxLevel){m[k].maxLevel=levelScore[r.level]||0;m[k].highest=r.level}});const top=Object.values(m).sort((a,b)=>b.maxLevel-a.maxLevel||b.positionPoints-a.positionPoints||b.count-a.count).slice(0,5);$('topFive').innerHTML=top.length?top.map((x,i)=>'<div class="rank"><span class="rank-num">'+(i+1)+'</span><div><b>'+esc(x.name)+'</b><br><small>'+esc(x.className)+' • Peringkat tertinggi: '+esc(x.highest)+' • '+x.count+' sijil pencapaian</small></div></div>').join(''):'<div class="status">Belum ada sijil pencapaian yang disahkan mengikut tapisan.</div>'}
-function renderPending(){const rows=allRows.filter(r=>r.status==='MENUNGGU SEMAKAN'||r.status==='DALAM SEMAKAN'),badge=$('reviewBadge');badge.textContent=rows.length;badge.classList.toggle('show',rows.length>0);badge.setAttribute('aria-label',rows.length+' rekod perlu disemak');$('records').innerHTML=rows.length?'':'<tr><td colspan="5">Tiada rekod menunggu semakan.</td></tr>';rows.forEach(r=>{const tr=document.createElement('tr');tr.innerHTML='<td><b>'+esc(r.code)+'</b><br>'+esc(r.submitted)+'</td><td><b>'+esc(r.student)+'</b><br>'+esc(r.className)+'</td><td>'+esc(r.activity)+'<br><button type="button" class="btn soft certificate" style="padding:6px 9px;margin-top:5px">Lihat sijil</button></td><td>'+esc(r.category)+'<br>'+esc(r.level)+' • '+esc(r.position||r.result)+'</td><td><span class="pill">'+esc(r.status)+'</span><div class="actions" style="margin-top:7px"><button class="btn green approve">Sahkan</button><button class="btn red reject">Tolak</button></div></td>';tr.querySelector('.certificate').onclick=()=>viewCertificate(r.code);tr.querySelector('.approve').onclick=()=>openReview(r,'DISAHKAN');tr.querySelector('.reject').onclick=()=>openReview(r,'DITOLAK / PERLU TINDAKAN');$('records').appendChild(tr)})}
-function b64Blob(data,type){const bin=atob(data),parts=[];for(let i=0;i<bin.length;i+=8192){const slice=bin.slice(i,i+8192),bytes=new Uint8Array(slice.length);for(let j=0;j<slice.length;j++)bytes[j]=slice.charCodeAt(j);parts.push(bytes)}return new Blob(parts,{type})}async function viewCertificate(code){const win=window.open('','_blank');try{const r=await call('getCertificate',{pin,code},90000),url=URL.createObjectURL(b64Blob(r.data,r.type));if(win)win.location.href=url;else{const a=document.createElement('a');a.href=url;a.download=r.name;a.click()}setTimeout(()=>URL.revokeObjectURL(url),120000)}catch(e){if(win)win.close();alert(e.message)}}
-function setOption(id,value,fallback){const el=$(id),wanted=String(value||fallback||'');el.value=[...el.options].some(o=>o.value===wanted)?wanted:(fallback||el.options[0].value)}function openReview(r,status){$('reviewCode').value=r.code;$('reviewStatus').value=status;$('reviewStudent').innerHTML='<b>'+esc(r.student)+'</b> • '+esc(r.className)+'<br>'+esc(r.activity);setOption('reviewCategory',r.category,'Tidak pasti');setOption('reviewLevel',r.level,'Tidak pasti');setOption('reviewResult',r.result,'Penyertaan sahaja');setOption('reviewPosition',r.position,'');$('reviewNote').value=r.note||'';$('reviewMessage').innerHTML='';$('reviewModal').classList.remove('hide');updateReviewPosition()}function closeReview(){$('reviewModal').classList.add('hide')}$('closeReview').onclick=closeReview;$('cancelReview').onclick=closeReview;$('reviewResult').onchange=updateReviewPosition;function updateReviewPosition(){$('reviewPositionWrap').classList.toggle('hide',$('reviewResult').value!=='Mendapat kedudukan');if($('reviewResult').value!=='Mendapat kedudukan')$('reviewPosition').value=''}
-$('reviewForm').onsubmit=async e=>{e.preventDefault();const status=$('reviewStatus').value,note=$('reviewNote').value.trim();if(status==='DITOLAK / PERLU TINDAKAN'&&!note)return msg('reviewMessage','Nyatakan alasan rekod ditolak.','err');try{$('saveReview').disabled=true;$('saveReview').innerHTML='<span class="spinner"></span>Menyimpan';await call('reviewRecord',{pin,review:{code:$('reviewCode').value,status,category:$('reviewCategory').value,level:$('reviewLevel').value,result:$('reviewResult').value,position:$('reviewPosition').value,note,reviewer:$('reviewer').value.toUpperCase()}},60000);msg('reviewMessage',status==='DISAHKAN'?'Pengesahan berjaya disimpan. Rekod telah masuk ke Dashboard.':'Keputusan berjaya disimpan. Rekod telah dikeluarkan daripada senarai semakan.','ok');await loadDashboard();setTimeout(()=>{closeReview();show('review')},1200)}catch(e){msg('reviewMessage',e.message,'err')}finally{$('saveReview').disabled=false;$('saveReview').textContent='Simpan Pengesahan'}};
-$('bulkAchievement').onchange=()=>$('bulkPositionWrap').classList.toggle('hide',$('bulkAchievement').value!=='Mendapat kedudukan');$('bulkQuery').oninput=()=>{clearTimeout(timer);const q=$('bulkQuery').value.trim();if(q.length<3){$('bulkSuggestions').innerHTML='';return}timer=setTimeout(()=>renderSuggestions(PAJSK_STUDENTS.filter(s=>s.nama.includes(q)).slice(0,30)),80)};function renderSuggestions(rows){$('bulkSuggestions').innerHTML='';rows.forEach(s=>{const b=document.createElement('button');b.type='button';b.className='candidate';b.innerHTML=esc(s.nama)+'<small>'+esc(s.kelas)+'</small>';b.onclick=()=>addStudent(s);$('bulkSuggestions').appendChild(b)})}function addStudent(s){if(selected.some(x=>x.id===s.id))return msg('bulkMessage','Murid sudah dipilih.','err');if(selected.length>=30)return msg('bulkMessage','Maksimum 30 peserta.','err');selected.push(s);$('bulkQuery').value='';$('bulkSuggestions').innerHTML='';renderSelected()}function removeStudent(id){selected=selected.filter(x=>x.id!==id);renderSelected()}function renderSelected(){const e=$('bulkParticipants');e.innerHTML=selected.length?'<div class="status ok"><b>'+selected.length+' peserta dipilih</b></div>':'';selected.forEach((s,i)=>{const d=document.createElement('div');d.className='candidate';d.innerHTML='<div style="display:flex;justify-content:space-between;gap:8px"><span><b>'+(i+1)+'. '+esc(s.nama)+'</b><small>'+esc(s.kelas)+'</small></span><button type="button" class="btn red">Buang</button></div>';d.querySelector('button').onclick=()=>removeStudent(s.id);e.appendChild(d)})}function fileData(f){return new Promise((res,rej)=>{const r=new FileReader;r.onload=()=>res(r.result);r.onerror=rej;r.readAsDataURL(f)})}
-$('bulkForm').onsubmit=async e=>{e.preventDefault();if(!selected.length)return msg('bulkMessage','Tambah sekurang-kurangnya seorang peserta.','err');const f=$('bulkCertificate').files[0];if(!f||f.size>6*1024*1024)return msg('bulkMessage','Pilih fail maksimum 6 MB.','err');try{$('bulkBtn').disabled=true;$('bulkBtn').innerHTML='<span class="spinner"></span>Sedang menghantar';const r=await call('submitBulkCertificates',{pin,studentIds:selected.map(x=>x.id),activityName:$('bulkActivity').value.toUpperCase(),activityDate:$('bulkDate').value,category:$('bulkCategory').value,level:$('bulkLevel').value,achievement:$('bulkAchievement').value,position:$('bulkAchievement').value==='Mendapat kedudukan'?$('bulkPosition').value:'',senderRole:'Guru / Penyelaras',senderName:$('bulkSender').value.toUpperCase(),file:{name:f.name,type:f.type,data:await fileData(f)}},120000);$('bulkMessage').innerHTML='<div class="status ok">Berjaya! '+r.count+' rekod dicipta. Kod kumpulan: <b>'+esc(r.batchCode)+'</b></div>';$('bulkForm').reset();selected=[];renderSelected()}catch(e){msg('bulkMessage',e.message,'err')}finally{$('bulkBtn').disabled=false;$('bulkBtn').textContent='Hantar Semua Peserta'}};
-async function loadAnnouncements(){try{renderAnnouncements(await call('getAnnouncements',{pin},30000))}catch(e){msg('announcementMessage',e.message,'err')}}function renderAnnouncements(items){const box=$('announcementList');box.innerHTML=items.length?'':'<div class="status">Belum ada hebahan.</div>';items.forEach(a=>{const d=document.createElement('div');d.className='announcement-item'+(a.active?'':' off');d.innerHTML='<b>'+esc(a.message)+'</b><small style="display:block;margin:7px 0;color:#667">'+esc(a.date)+' • '+esc(a.by)+' • '+(a.active?'AKTIF':'DINYAHAKTIF')+'</small><div class="actions"><button type="button" class="btn soft edit">Edit</button><button type="button" class="btn '+(a.active?'red':'green')+' toggle">'+(a.active?'Nyahaktif':'Aktifkan')+'</button></div>';d.querySelector('.edit').onclick=()=>editAnnouncement(a);d.querySelector('.toggle').onclick=()=>toggleAnnouncement(a.id,!a.active);box.appendChild(d)})}function editAnnouncement(a){$('announcementId').value=a.id;$('announcementText').value=a.message;$('announcementBy').value=a.by;$('announcementBtn').textContent='Simpan Perubahan';$('cancelAnnouncement').classList.remove('hide');scrollTo({top:0,behavior:'smooth'})}function resetAnnouncement(){$('announcementForm').reset();$('announcementId').value='';$('announcementBtn').textContent='Terbitkan Hebahan';$('cancelAnnouncement').classList.add('hide')}$('cancelAnnouncement').onclick=resetAnnouncement;async function toggleAnnouncement(id,active){try{const r=await call('setAnnouncementActive',{pin,id,active},30000);renderAnnouncements(r.items);await loadTicker()}catch(e){msg('announcementMessage',e.message,'err')}}
-$('announcementForm').onsubmit=async e=>{e.preventDefault();try{$('announcementBtn').disabled=true;const r=await call('saveAnnouncement',{pin,announcement:{id:$('announcementId').value,message:$('announcementText').value,by:$('announcementBy').value}},30000);resetAnnouncement();msg('announcementMessage','Hebahan berjaya disimpan.','ok');renderAnnouncements(r.items);await loadTicker()}catch(e){msg('announcementMessage',e.message,'err')}finally{$('announcementBtn').disabled=false}};
-</script></body></html>
+<!doctype html>
+<html lang="ms">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width,initial-scale=1,viewport-fit=cover"
+    />
+    <meta name="theme-color" content="#15467a" />
+    <title>Pengurusan PAJSK Guru | SK Temin</title>
+    <style>
+      :root {
+        --b: #175b9c;
+        --bd: #103d69;
+        --g: #08745b;
+        --red: #c9233f;
+        --gold: #f4b400;
+        --ink: #172a3d;
+        --line: #d8e5ef;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        background: linear-gradient(155deg, #edf6ff, #f7fafc);
+        font-family: Inter, Arial, sans-serif;
+        color: var(--ink);
+      }
+      .wrap {
+        max-width: 1100px;
+        margin: auto;
+        padding: 14px;
+      }
+      .hero {
+        padding: 22px;
+        border-radius: 24px;
+        background: linear-gradient(135deg, var(--bd), var(--b));
+        color: #fff;
+        box-shadow: 0 14px 35px #15467a2b;
+      }
+      .hero h1 {
+        margin: 0;
+        font-size: 22px;
+      }
+      .hero p {
+        margin: 6px 0 0;
+        font-size: 12px;
+        opacity: 0.85;
+      }
+      .card {
+        background: #fff;
+        border: 1px solid var(--line);
+        border-radius: 20px;
+        padding: 17px;
+        margin-top: 13px;
+        box-shadow: 0 8px 24px #174d4020;
+      }
+      .tabs {
+        display: flex;
+        gap: 8px;
+        margin: 14px 0;
+      }
+      .tab {
+        flex: 1;
+        border: 0;
+        border-radius: 14px;
+        padding: 12px;
+        background: #fff;
+        color: #456078;
+        font-weight: 900;
+      }
+      .tab.active,
+      .btn {
+        background: var(--b);
+        color: #fff;
+      }
+      .grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
+      }
+      .full {
+        grid-column: 1/-1;
+      }
+      label {
+        display: block;
+        font-size: 11px;
+        font-weight: 900;
+        color: #486273;
+        margin-bottom: 6px;
+      }
+      input,
+      select,
+      textarea {
+        width: 100%;
+        padding: 12px;
+        border: 1.5px solid #d5e1e9;
+        border-radius: 12px;
+        background: #fbfdff;
+        font: inherit;
+        font-size: 13px;
+        outline: none;
+      }
+      #bulkActivity,
+      #bulkSender,
+      #fClass,
+      #reviewer,
+      #announcementBy,
+      #announcementText {
+        text-transform: uppercase;
+      }
+      .btn {
+        border: 0;
+        border-radius: 13px;
+        padding: 11px 14px;
+        font-weight: 900;
+        cursor: pointer;
+      }
+      .btn:disabled {
+        opacity: 0.55;
+      }
+      .btn.green {
+        background: var(--g);
+      }
+      .btn.red {
+        background: var(--red);
+      }
+      .btn.soft {
+        background: #e8f2fb;
+        color: var(--bd);
+      }
+      .btn.gold {
+        background: #fff1c2;
+        color: #7b5300;
+      }
+      .hide {
+        display: none !important;
+      }
+      .status {
+        padding: 11px;
+        border-radius: 12px;
+        margin-top: 10px;
+        background: #e8f2fb;
+        color: #174b78;
+        font-size: 12px;
+        font-weight: 800;
+      }
+      .err {
+        background: #feecef;
+        color: #a31c34;
+      }
+      .ok {
+        background: #e8f8ef;
+        color: #176638;
+      }
+      .suggest {
+        display: grid;
+        gap: 7px;
+        margin-top: 8px;
+      }
+      .candidate {
+        border: 1px solid var(--line);
+        background: #fff;
+        border-radius: 12px;
+        padding: 10px;
+        text-align: left;
+        font-weight: 800;
+      }
+      .candidate small {
+        display: block;
+        color: var(--b);
+        margin-top: 3px;
+      }
+      .notice {
+        background: #fff7df;
+        border: 1px solid #f2d589;
+        color: #76530c;
+        padding: 12px;
+        border-radius: 14px;
+        font-size: 12px;
+        line-height: 1.5;
+      }
+      .filters {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 8px;
+      }
+      .scroll {
+        overflow: auto;
+      }
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 11px;
+      }
+      th,
+      td {
+        padding: 9px;
+        border-bottom: 1px solid #e5edf3;
+        text-align: left;
+        vertical-align: top;
+      }
+      th {
+        background: #edf5fb;
+      }
+      .pill {
+        display: inline-block;
+        padding: 5px 8px;
+        border-radius: 999px;
+        background: #fff1d6;
+        color: #805300;
+        font-weight: 900;
+        font-size: 10px;
+      }
+      .pill.done {
+        background: #dcfce7;
+        color: #166534;
+      }
+      .actions {
+        display: flex;
+        gap: 6px;
+        flex-wrap: wrap;
+      }
+      .stats {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 9px;
+      }
+      .stat {
+        padding: 14px;
+        border-radius: 16px;
+        background: #f3f8fc;
+        border: 1px solid #dbe9f3;
+      }
+      .stat b {
+        display: block;
+        font-size: 24px;
+        color: var(--b);
+      }
+      .stat span {
+        font-size: 10px;
+        font-weight: 900;
+        color: #587083;
+      }
+      .category-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 10px;
+      }
+      .category-card {
+        border: 1px solid var(--line);
+        border-radius: 16px;
+        padding: 13px;
+        background: #fbfdff;
+      }
+      .category-card h3 {
+        font-size: 13px;
+        margin: 0 0 8px;
+        color: var(--b);
+      }
+      .name-row {
+        padding: 8px 0;
+        border-top: 1px dashed #dbe5ed;
+        font-size: 11px;
+      }
+      .name-row:first-of-type {
+        border-top: 0;
+      }
+      .rank {
+        display: flex;
+        gap: 9px;
+        align-items: flex-start;
+        padding: 10px;
+        border-radius: 14px;
+        background: linear-gradient(135deg, #fff9df, #fff);
+        border: 1px solid #f4dc8a;
+        margin-top: 8px;
+      }
+      .rank-num {
+        width: 30px;
+        height: 30px;
+        display: grid;
+        place-items: center;
+        border-radius: 50%;
+        background: #f4b400;
+        color: #fff;
+        font-weight: 950;
+      }
+      .announcement-item {
+        border: 1px solid #ffc7cf;
+        background: #fff4f5;
+        border-radius: 15px;
+        padding: 12px;
+        margin-top: 9px;
+      }
+      .announcement-item.off {
+        opacity: 0.58;
+        filter: grayscale(0.5);
+      }
+      .ticker {
+        margin: 12px 0 0;
+        display: flex;
+        align-items: center;
+        overflow: hidden;
+        border: 2px solid #ffd452;
+        border-radius: 15px;
+        background: linear-gradient(90deg, #a70f2d, #ef1746);
+        color: #fff;
+        box-shadow: 0 8px 22px #a70f2d42;
+      }
+      .ticker-label {
+        position: relative;
+        z-index: 2;
+        flex: none;
+        padding: 11px;
+        background: #ffd452;
+        color: #641020;
+        font-size: 11px;
+        font-weight: 950;
+      }
+      .ticker-window {
+        overflow: hidden;
+        white-space: nowrap;
+      }
+      .ticker-track {
+        display: inline-block;
+        padding-left: 100%;
+        font-size: 12px;
+        font-weight: 950;
+        animation: tick var(--ticker-time, 28s) linear infinite;
+      }
+      .ticker-track span {
+        margin-right: 55px;
+      }
+      @keyframes tick {
+        to {
+          transform: translateX(-100%);
+        }
+      }
+      .modal {
+        position: fixed;
+        inset: 0;
+        z-index: 50;
+        background: #07192bb8;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 14px;
+      }
+      .modal-box {
+        width: min(680px, 100%);
+        max-height: 92vh;
+        overflow: auto;
+        background: #fff;
+        border-radius: 22px;
+        padding: 18px;
+        box-shadow: 0 20px 60px #0005;
+      }
+      .modal-head {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 10px;
+        margin-bottom: 12px;
+      }
+      .modal-head h3 {
+        margin: 0;
+      }
+      .spinner {
+        display: inline-block;
+        width: 14px;
+        height: 14px;
+        border: 2px solid #fff8;
+        border-top-color: #fff;
+        border-radius: 50%;
+        animation: s 0.8s linear infinite;
+        vertical-align: -2px;
+        margin-right: 5px;
+      }
+      @keyframes s {
+        to {
+          transform: rotate(360deg);
+        }
+      }
+      .tab {
+        position: relative;
+      }
+      .badge {
+        display: none;
+        min-width: 21px;
+        height: 21px;
+        padding: 0 6px;
+        margin-left: 5px;
+        align-items: center;
+        justify-content: center;
+        border-radius: 999px;
+        background: #ef1746;
+        color: #fff;
+        font-size: 10px;
+        font-weight: 950;
+        box-shadow: 0 0 0 3px #fff;
+      }
+      .badge.show {
+        display: inline-flex;
+      }
+      .tab.active .badge {
+        box-shadow: 0 0 0 3px var(--b);
+      }
+      table {
+        min-width: 760px;
+      }
+      @media (max-width: 720px) {
+        .grid,
+        .filters,
+        .category-grid,
+        .stats {
+          grid-template-columns: 1fr;
+        }
+        .tabs {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+        }
+        .wrap {
+          padding: 9px;
+        }
+        .card {
+          padding: 13px;
+        }
+        .ticker-label {
+          padding: 10px 7px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="wrap">
+      <header class="hero">
+        <h1>📋 Pengurusan PAJSK Guru</h1>
+        <p>SK Temin • Guru Kelas, Penyelaras PAJSK &amp; SU Kokurikulum</p>
+      </header>
+      <aside id="teacherTicker" class="ticker hide">
+        <div class="ticker-label">📢 HEBAHAN</div>
+        <div class="ticker-window">
+          <div id="teacherTickerTrack" class="ticker-track"></div>
+        </div>
+      </aside>
+      <section id="loginCard" class="card">
+        <h3>Log Masuk Guru</h3>
+        <div class="grid">
+          <div>
+            <label>PIN PORTAL GURU</label
+            ><input id="loginPin" type="password" inputmode="numeric" />
+          </div>
+          <div style="align-self: end">
+            <button class="btn" id="loginBtn">Masuk</button>
+          </div>
+        </div>
+        <div id="loginMessage"></div>
+      </section>
+      <div id="app" class="hide">
+        <nav class="tabs">
+          <button class="tab" data-view="dashboard">Dashboard</button
+          ><button class="tab" data-view="review">
+            Perlu Disemak
+            <span
+              id="reviewBadge"
+              class="badge"
+              aria-label="0 rekod perlu disemak"
+              >0</span
+            ></button
+          ><button class="tab" data-view="bulk">Hantar Pukal</button
+          ><button class="tab" data-view="announcements">Urus Hebahan</button>
+        </nav>
+        <section id="dashboard" class="view">
+          <div class="card">
+            <div id="stats" class="stats"></div>
+            <div class="filters" style="margin-top: 13px">
+              <select id="fClass">
+                <option value="">Semua kelas</option></select
+              ><select id="fCategory">
+                <option value="">Semua kategori</option>
+                <option>Sukan dan Permainan</option>
+                <option>Unit Beruniform</option>
+                <option>Kelab dan Persatuan</option></select
+              ><select id="fLevel">
+                <option value="">Semua peringkat</option>
+                <option>Sekolah</option>
+                <option>Zon</option>
+                <option>Daerah</option>
+                <option>Negeri</option>
+                <option>Kebangsaan</option>
+                <option>Antarabangsa</option></select
+              ><button class="btn" id="reloadBtn">Tapis / Muat Semula</button>
+            </div>
+          </div>
+          <div class="card">
+            <h2 style="margin: 0 0 5px; font-size: 17px">
+              🏆 Calon Tokoh Kokurikulum — Top 5
+            </h2>
+            <p style="margin: 0; color: #6b7e8d; font-size: 11px">
+              Sijil penyertaan tidak dikira. Ranking hanya berdasarkan sijil
+              pencapaian mengikut peringkat tertinggi dan kedudukan terbaik.
+            </p>
+            <div id="topFive"></div>
+          </div>
+          <div class="card">
+            <h2 style="margin-top: 0; font-size: 17px">
+              Senarai Murid Mengikut Komponen
+            </h2>
+            <div id="categoryLists" class="category-grid"></div>
+          </div>
+        </section>
+        <section id="review" class="view hide">
+          <div class="card">
+            <h2 style="margin-top: 0; font-size: 17px">
+              Rekod Menunggu Semakan
+            </h2>
+            <p style="font-size: 11px; color: #667">
+              Hanya rekod yang belum selesai dipaparkan di sini. Rekod yang
+              telah disahkan tidak lagi mempunyai butang Sahkan/Tolak.
+            </p>
+          </div>
+          <div class="card scroll">
+            <table>
+              <thead>
+                <tr>
+                  <th>Kod/Tarikh</th>
+                  <th>Murid</th>
+                  <th>Aktiviti</th>
+                  <th>Cadangan</th>
+                  <th>Tindakan</th>
+                </tr>
+              </thead>
+              <tbody id="records"></tbody>
+            </table>
+          </div>
+        </section>
+        <section id="bulk" class="view hide">
+          <div class="card">
+            <div class="notice">
+              <b>Hantar pukal:</b> Isi maklumat pertandingan sekali dan pilih
+              semua peserta. Jika sijil belum diterima, rekod masih boleh
+              dihantar dan sijil boleh dikemas kini kemudian.
+            </div>
+            <div class="grid" style="margin-top: 12px">
+              <div>
+                <label>IMPORT PASUKAN DARIPADA APSS</label>
+                <select id="apssTeam">
+                  <option value="">Pilih pasukan yang telah disedut</option>
+                </select>
+              </div>
+              <div style="align-self: end">
+                <button type="button" class="btn gold" id="importApssBtn">
+                  Import Data APSS
+                </button>
+              </div>
+            </div>
+            <div id="apssMessage"></div>
+            <form id="bulkForm" class="grid" style="margin-top: 14px">
+              <div>
+                <label>NAMA GURU / PENGURUS</label
+                ><input id="bulkSender" required />
+              </div>
+              <div>
+                <label>NAMA PERTANDINGAN / PROGRAM</label
+                ><input id="bulkActivity" required />
+              </div>
+              <div>
+                <label>TARIKH AKTIVITI</label
+                ><input id="bulkDate" type="date" />
+              </div>
+              <div>
+                <label>KATEGORI</label
+                ><select id="bulkCategory">
+                  <option>Tidak pasti</option>
+                  <option>Sukan dan Permainan</option>
+                  <option>Unit Beruniform</option>
+                  <option>Kelab dan Persatuan</option>
+                </select>
+              </div>
+              <div>
+                <label>PERINGKAT</label
+                ><select id="bulkLevel">
+                  <option>Tidak pasti</option>
+                  <option>Sekolah</option>
+                  <option>Zon</option>
+                  <option>Daerah</option>
+                  <option>Negeri</option>
+                  <option>Kebangsaan</option>
+                  <option>Antarabangsa</option>
+                </select>
+              </div>
+              <div>
+                <label>KEPUTUSAN</label
+                ><select id="bulkAchievement">
+                  <option>Penyertaan sahaja</option>
+                  <option>Mendapat kedudukan</option>
+                  <option>Tidak pasti</option>
+                </select>
+              </div>
+              <div id="bulkPositionWrap" class="hide">
+                <label>KEDUDUKAN</label
+                ><select id="bulkPosition">
+                  <option>Johan</option>
+                  <option>Naib Johan</option>
+                  <option>Ketiga</option>
+                  <option>Keempat</option>
+                  <option>Kelima</option>
+                  <option>Lain-lain</option>
+                </select>
+              </div>
+              <div class="full">
+                <label>CARI PESERTA (MAKSIMUM 30)</label
+                ><input
+                  id="bulkQuery"
+                  placeholder="Taip sekurang-kurangnya 3 huruf"
+                />
+                <div id="bulkSuggestions" class="suggest"></div>
+                <div id="bulkParticipants" class="suggest"></div>
+              </div>
+              <div class="full">
+                <label
+                  >SIJIL / BUKTI (PILIHAN • BOLEH KEMAS KINI KEMUDIAN)</label
+                ><input
+                  id="bulkCertificate"
+                  type="file"
+                  accept="image/jpeg,image/png,application/pdf"
+                />
+              </div>
+              <button class="btn green full" id="bulkBtn">
+                Hantar Semua Peserta
+              </button>
+            </form>
+            <div id="bulkMessage"></div>
+          </div>
+          <div class="card">
+            <h3 style="margin-top: 0">⏳ Menunggu Sijil</h3>
+            <p class="small">
+              Rekod telah dihantar. Muat naik sijil apabila diterima kemudian.
+            </p>
+            <div id="missingCertificates"></div>
+          </div>
+        </section>
+        <section id="announcements" class="view hide">
+          <div class="card">
+            <div class="notice">
+              <b>Urus hebahan:</b> Hebahan aktif terus bergerak pada header
+              Portal Guru dan halaman PAJSK. Gunakan bahagian ini hanya untuk
+              tambah, edit atau nyahaktif.
+            </div>
+            <form id="announcementForm" class="grid" style="margin-top: 14px">
+              <input id="announcementId" type="hidden" />
+              <div class="full">
+                <label>TEKS HEBAHAN (MAKSIMUM 500 AKSARA)</label
+                ><textarea
+                  id="announcementText"
+                  rows="4"
+                  maxlength="500"
+                  required
+                ></textarea>
+              </div>
+              <div>
+                <label>DITERBITKAN OLEH</label
+                ><input id="announcementBy" required />
+              </div>
+              <div class="actions" style="align-self: end">
+                <button class="btn red" id="announcementBtn">
+                  Terbitkan Hebahan</button
+                ><button
+                  type="button"
+                  class="btn soft hide"
+                  id="cancelAnnouncement"
+                >
+                  Batal Edit
+                </button>
+              </div>
+            </form>
+            <div id="announcementMessage"></div>
+          </div>
+          <div class="card">
+            <h3 style="margin-top: 0">Senarai Hebahan</h3>
+            <div id="announcementList"></div>
+          </div>
+        </section>
+      </div>
+    </main>
+    <div id="reviewModal" class="modal hide">
+      <div class="modal-box">
+        <div class="modal-head">
+          <h3>Semakan Rekod PAJSK</h3>
+          <button type="button" class="btn soft" id="closeReview">✕</button>
+        </div>
+        <div id="reviewStudent" class="notice"></div>
+        <form id="reviewForm" class="grid" style="margin-top: 12px">
+          <input id="reviewCode" type="hidden" /><input
+            id="reviewStatus"
+            type="hidden"
+          />
+          <div>
+            <label>KATEGORI MUKTAMAD</label
+            ><select id="reviewCategory">
+              <option>Tidak pasti</option>
+              <option>Sukan dan Permainan</option>
+              <option>Unit Beruniform</option>
+              <option>Kelab dan Persatuan</option>
+            </select>
+          </div>
+          <div>
+            <label>PERINGKAT MUKTAMAD</label
+            ><select id="reviewLevel">
+              <option>Tidak pasti</option>
+              <option>Sekolah</option>
+              <option>Zon</option>
+              <option>Daerah</option>
+              <option>Negeri</option>
+              <option>Kebangsaan</option>
+              <option>Antarabangsa</option>
+            </select>
+          </div>
+          <div>
+            <label>KEPUTUSAN MUKTAMAD</label
+            ><select id="reviewResult">
+              <option>Penyertaan sahaja</option>
+              <option>Mendapat kedudukan</option>
+              <option>Tidak pasti</option>
+            </select>
+          </div>
+          <div id="reviewPositionWrap">
+            <label>KEDUDUKAN</label
+            ><select id="reviewPosition">
+              <option value="">Tiada</option>
+              <option>Johan</option>
+              <option>Naib Johan</option>
+              <option>Ketiga</option>
+              <option>Keempat</option>
+              <option>Kelima</option>
+              <option>Lain-lain</option>
+            </select>
+          </div>
+          <div>
+            <label>NAMA PENYEMAK</label><input id="reviewer" required />
+          </div>
+          <div class="full">
+            <label>CATATAN / ALASAN JIKA DITOLAK</label
+            ><textarea id="reviewNote" rows="3"></textarea>
+          </div>
+          <div class="full actions">
+            <button type="submit" class="btn green" id="saveReview">
+              Simpan Pengesahan</button
+            ><button type="button" class="btn soft" id="cancelReview">
+              Batal
+            </button>
+          </div>
+        </form>
+        <div id="reviewMessage"></div>
+      </div>
+    </div>
+    <script src="./students.js"></script>
+    <script>
+      const API =
+          "https://script.google.com/macros/s/AKfycbxVuNvJtVFh_sjVAPvChtmDjaofM15D063V6iKQQ3aSbwJw9c_ZZ_1OwY7E7c0e7U3D/exec",
+        $ = (id) => document.getElementById(id);
+      let pin = "",
+        selected = [],
+        timer = null,
+        pending = new Map(),
+        allRows = [];
+      if (new URLSearchParams(location.search).get("embed") === "1") {
+        document.querySelector(".hero").classList.add("hide");
+        document.querySelector(".wrap").style.padding = "0";
+      }
+      const esc = (v) =>
+        String(v || "").replace(
+          /[&<>"']/g,
+          (c) =>
+            ({
+              "&": "&amp;",
+              "<": "&lt;",
+              ">": "&gt;",
+              '"': "&quot;",
+              "'": "&#39;",
+            })[c],
+        );
+      function msg(id, t, type = "ok") {
+        const e = $(id);
+        e.className = "status " + type;
+        e.textContent = t;
+      }
+      function upper(id) {
+        $(id).addEventListener(
+          "input",
+          (e) => (e.target.value = e.target.value.toUpperCase()),
+        );
+      }
+      [
+        "bulkSender",
+        "bulkActivity",
+        "bulkQuery",
+        "announcementBy",
+        "announcementText",
+        "reviewer",
+      ].forEach(upper);
+      [...new Set(PAJSK_STUDENTS.map((s) => s.kelas).filter(Boolean))]
+        .sort((a, b) => a.localeCompare(b, "ms", { numeric: true }))
+        .forEach((k) => {
+          const o = document.createElement("option");
+          o.value = k;
+          o.textContent = k;
+          $("fClass").appendChild(o);
+        });
+      function call(action, payload = {}, timeout = 75000) {
+        return new Promise((resolve, reject) => {
+          const token =
+              Date.now().toString(36) + Math.random().toString(36).slice(2),
+            frame = document.createElement("iframe"),
+            form = document.createElement("form");
+          frame.name = "f_" + token;
+          frame.className = "hide";
+          form.method = "POST";
+          form.action = API;
+          form.target = frame.name;
+          form.className = "hide";
+          payload._requestId = token;
+          for (const [name, value] of Object.entries({
+            action,
+            requestId: token,
+            payload: JSON.stringify(payload),
+          })) {
+            const el =
+              name === "payload"
+                ? document.createElement("textarea")
+                : document.createElement("input");
+            el.name = name;
+            el.value = value;
+            form.appendChild(el);
+          }
+          document.body.append(frame, form);
+          const tid = setTimeout(
+            () =>
+              done(
+                new Error("Sambungan mengambil masa terlalu lama. Cuba lagi."),
+              ),
+            timeout,
+          );
+          function done(err, data) {
+            clearTimeout(tid);
+            pending.delete(token);
+            form.remove();
+            frame.remove();
+            err ? reject(err) : resolve(data);
+          }
+          pending.set(token, done);
+          form.submit();
+        });
+      }
+      window.addEventListener("message", (e) => {
+        const r = e.data || {},
+          done = pending.get(r.requestId);
+        if (done)
+          done(r.ok ? null : new Error(r.error || "Tindakan gagal."), r.result);
+      });
+      function show(v) {
+        document
+          .querySelectorAll(".view")
+          .forEach((x) => x.classList.add("hide"));
+        $(v).classList.remove("hide");
+        document
+          .querySelectorAll(".tab")
+          .forEach((x) => x.classList.toggle("active", x.dataset.view === v));
+        if ((v === "dashboard" || v === "review") && pin) loadDashboard();
+        if (v === "announcements" && pin) loadAnnouncements();
+        if (v === "bulk" && pin) loadBulkTools();
+      }
+      document
+        .querySelectorAll(".tab")
+        .forEach((b) => (b.onclick = () => show(b.dataset.view)));
+      async function login(p, auto = false) {
+        if (!p) return;
+        try {
+          const r = await call("adminLogin", { pin: p }, 30000);
+          if (!r.ok) {
+            if (auto) localStorage.removeItem("pajskTeacherPin");
+            else msg("loginMessage", "PIN tidak betul.", "err");
+            return;
+          }
+          pin = p;
+          localStorage.setItem("pajskTeacherPin", p);
+          $("loginCard").classList.add("hide");
+          $("app").classList.remove("hide");
+          await loadTicker();
+          show("dashboard");
+        } catch (e) {
+          if (!auto) msg("loginMessage", e.message, "err");
+        }
+      }
+      $("loginBtn").onclick = async () => {
+        try {
+          $("loginBtn").disabled = true;
+          await login($("loginPin").value);
+        } finally {
+          $("loginBtn").disabled = false;
+        }
+      };
+      const savedPin = localStorage.getItem("pajskTeacherPin");
+      if (savedPin) login(savedPin, true);
+      async function loadTicker() {
+        try {
+          const items = (await call("getAnnouncements", { pin }, 30000)).filter(
+              (x) => x.active,
+            ),
+            box = $("teacherTicker");
+          if (!items.length) {
+            box.classList.add("hide");
+            return;
+          }
+          const track = $("teacherTickerTrack");
+          track.innerHTML = items
+            .map((x) => "<span>● " + esc(x.message) + "</span>")
+            .join("");
+          track.style.setProperty(
+            "--ticker-time",
+            Math.max(
+              24,
+              items.reduce((n, x) => n + x.message.length, 0) * 0.17,
+            ) + "s",
+          );
+          box.classList.remove("hide");
+        } catch (_) {}
+      }
+      async function loadDashboard() {
+        try {
+          allRows = await call("getAdminRecords", { pin, filters: {} }, 60000);
+          renderDashboard();
+          renderPending();
+        } catch (e) {
+          $("records").innerHTML =
+            '<tr><td colspan="5">' + esc(e.message) + "</td></tr>";
+        }
+      }
+      $("reloadBtn").onclick = renderDashboard;
+      ["fClass", "fCategory", "fLevel"].forEach((id) =>
+        $(id).addEventListener("change", renderDashboard),
+      );
+      function filteredApproved() {
+        const c = $("fClass").value.trim().toUpperCase(),
+          cat = $("fCategory").value,
+          lev = $("fLevel").value;
+        return allRows.filter(
+          (r) =>
+            r.status === "DISAHKAN" &&
+            (!c || r.className.includes(c)) &&
+            (!cat || r.category === cat) &&
+            (!lev || r.level === lev),
+        );
+      }
+      function renderDashboard() {
+        const rows = filteredApproved(),
+          unique = new Set(rows.map((r) => r.student + "|" + r.className));
+        $("stats").innerHTML =
+          '<div class="stat"><b>' +
+          unique.size +
+          '</b><span>MURID DIREKODKAN</span></div><div class="stat"><b>' +
+          rows.length +
+          '</b><span>SIJIL DISAHKAN</span></div><div class="stat"><b>' +
+          allRows.filter(
+            (r) =>
+              r.status === "MENUNGGU SEMAKAN" || r.status === "DALAM SEMAKAN",
+          ).length +
+          '</b><span>MENUNGGU SEMAKAN</span></div><div class="stat"><b>' +
+          new Set(rows.map((r) => r.className)).size +
+          "</b><span>KELAS TERLIBAT</span></div>";
+        renderCategories(rows);
+        renderTopFive(rows);
+      }
+      function renderCategories(rows) {
+        const cats = [
+            "Unit Beruniform",
+            "Kelab dan Persatuan",
+            "Sukan dan Permainan",
+          ],
+          box = $("categoryLists");
+        box.innerHTML = "";
+        cats.forEach((cat) => {
+          const grouped = {};
+          rows
+            .filter((r) => r.category === cat)
+            .forEach((r) => {
+              const k = r.student + "|" + r.className;
+              grouped[k] ??= {
+                student: r.student,
+                className: r.className,
+                count: 0,
+                highest: r.level,
+                max: levelScore[r.level] || 0,
+              };
+              grouped[k].count++;
+              if ((levelScore[r.level] || 0) > grouped[k].max) {
+                grouped[k].max = levelScore[r.level] || 0;
+                grouped[k].highest = r.level;
+              }
+            });
+          const list = Object.values(grouped).sort(
+              (a, b) =>
+                a.className.localeCompare(b.className) ||
+                a.student.localeCompare(b.student),
+            ),
+            d = document.createElement("div");
+          d.className = "category-card";
+          d.innerHTML =
+            "<h3>" +
+            esc(cat) +
+            " (" +
+            list.length +
+            " murid)</h3>" +
+            (list.length
+              ? list
+                  .map(
+                    (r) =>
+                      '<div class="name-row"><b>' +
+                      esc(r.student) +
+                      "</b><br>" +
+                      esc(r.className) +
+                      " • Tertinggi: " +
+                      esc(r.highest) +
+                      " • " +
+                      r.count +
+                      " sijil</div>",
+                  )
+                  .join("")
+              : "<small>Tiada rekod mengikut tapisan.</small>");
+          box.appendChild(d);
+        });
+      }
+      const levelScore = {
+          Antarabangsa: 7,
+          Kebangsaan: 6,
+          Negeri: 5,
+          Daerah: 4,
+          Zon: 3,
+          Sekolah: 2,
+          "Tidak pasti": 0,
+        },
+        positionScore = {
+          Johan: 5,
+          "Naib Johan": 4,
+          Ketiga: 3,
+          Keempat: 2,
+          Kelima: 1,
+        };
+      function renderTopFive(rows) {
+        const m = {};
+        rows
+          .filter(
+            (r) => r.result === "Mendapat kedudukan" && Boolean(r.position),
+          )
+          .forEach((r) => {
+            const k = r.student + "|" + r.className;
+            m[k] ??= {
+              name: r.student,
+              className: r.className,
+              count: 0,
+              positionPoints: 0,
+              highest: r.level,
+              maxLevel: levelScore[r.level] || 0,
+            };
+            m[k].count++;
+            m[k].positionPoints += positionScore[r.position] || 0;
+            if ((levelScore[r.level] || 0) > m[k].maxLevel) {
+              m[k].maxLevel = levelScore[r.level] || 0;
+              m[k].highest = r.level;
+            }
+          });
+        const top = Object.values(m)
+          .sort(
+            (a, b) =>
+              b.maxLevel - a.maxLevel ||
+              b.positionPoints - a.positionPoints ||
+              b.count - a.count,
+          )
+          .slice(0, 5);
+        $("topFive").innerHTML = top.length
+          ? top
+              .map(
+                (x, i) =>
+                  '<div class="rank"><span class="rank-num">' +
+                  (i + 1) +
+                  "</span><div><b>" +
+                  esc(x.name) +
+                  "</b><br><small>" +
+                  esc(x.className) +
+                  " • Peringkat tertinggi: " +
+                  esc(x.highest) +
+                  " • " +
+                  x.count +
+                  " sijil pencapaian</small></div></div>",
+              )
+              .join("")
+          : '<div class="status">Belum ada sijil pencapaian yang disahkan mengikut tapisan.</div>';
+      }
+      function renderPending() {
+        const rows = allRows.filter(
+            (r) =>
+              r.status === "MENUNGGU SEMAKAN" || r.status === "DALAM SEMAKAN",
+          ),
+          badge = $("reviewBadge");
+        badge.textContent = rows.length;
+        badge.classList.toggle("show", rows.length > 0);
+        badge.setAttribute("aria-label", rows.length + " rekod perlu disemak");
+        $("records").innerHTML = rows.length
+          ? ""
+          : '<tr><td colspan="5">Tiada rekod menunggu semakan.</td></tr>';
+        rows.forEach((r) => {
+          const tr = document.createElement("tr");
+          tr.innerHTML =
+            "<td><b>" +
+            esc(r.code) +
+            "</b><br>" +
+            esc(r.submitted) +
+            "</td><td><b>" +
+            esc(r.student) +
+            "</b><br>" +
+            esc(r.className) +
+            "</td><td>" +
+            esc(r.activity) +
+            (r.fileUrl
+              ? '<br><button type="button" class="btn soft certificate" style="padding:6px 9px;margin-top:5px">Lihat sijil</button>'
+              : '<br><span class="pill" style="margin-top:5px">MENUNGGU SIJIL</span>') +
+            "</td><td>" +
+            esc(r.category) +
+            "<br>" +
+            esc(r.level) +
+            " • " +
+            esc(r.position || r.result) +
+            '</td><td><span class="pill">' +
+            esc(r.status) +
+            '</span><div class="actions" style="margin-top:7px"><button class="btn green approve">Sahkan</button><button class="btn red reject">Tolak</button></div></td>';
+          const certButton = tr.querySelector(".certificate");
+          if (certButton) certButton.onclick = () => viewCertificate(r.code);
+          tr.querySelector(".approve").onclick = () =>
+            openReview(r, "DISAHKAN");
+          tr.querySelector(".reject").onclick = () =>
+            openReview(r, "DITOLAK / PERLU TINDAKAN");
+          $("records").appendChild(tr);
+        });
+      }
+      function b64Blob(data, type) {
+        const bin = atob(data),
+          parts = [];
+        for (let i = 0; i < bin.length; i += 8192) {
+          const slice = bin.slice(i, i + 8192),
+            bytes = new Uint8Array(slice.length);
+          for (let j = 0; j < slice.length; j++) bytes[j] = slice.charCodeAt(j);
+          parts.push(bytes);
+        }
+        return new Blob(parts, { type });
+      }
+      async function viewCertificate(code) {
+        const win = window.open("", "_blank");
+        try {
+          const r = await call("getCertificate", { pin, code }, 90000),
+            url = URL.createObjectURL(b64Blob(r.data, r.type));
+          if (win) win.location.href = url;
+          else {
+            const a = document.createElement("a");
+            a.href = url;
+            a.download = r.name;
+            a.click();
+          }
+          setTimeout(() => URL.revokeObjectURL(url), 120000);
+        } catch (e) {
+          if (win) win.close();
+          alert(e.message);
+        }
+      }
+      function setOption(id, value, fallback) {
+        const el = $(id),
+          wanted = String(value || fallback || "");
+        el.value = [...el.options].some((o) => o.value === wanted)
+          ? wanted
+          : fallback || el.options[0].value;
+      }
+      function openReview(r, status) {
+        $("reviewCode").value = r.code;
+        $("reviewStatus").value = status;
+        $("reviewStudent").innerHTML =
+          "<b>" +
+          esc(r.student) +
+          "</b> • " +
+          esc(r.className) +
+          "<br>" +
+          esc(r.activity);
+        setOption("reviewCategory", r.category, "Tidak pasti");
+        setOption("reviewLevel", r.level, "Tidak pasti");
+        setOption("reviewResult", r.result, "Penyertaan sahaja");
+        setOption("reviewPosition", r.position, "");
+        $("reviewNote").value = r.note || "";
+        $("reviewMessage").innerHTML = "";
+        $("reviewModal").classList.remove("hide");
+        updateReviewPosition();
+      }
+      function closeReview() {
+        $("reviewModal").classList.add("hide");
+      }
+      $("closeReview").onclick = closeReview;
+      $("cancelReview").onclick = closeReview;
+      $("reviewResult").onchange = updateReviewPosition;
+      function updateReviewPosition() {
+        $("reviewPositionWrap").classList.toggle(
+          "hide",
+          $("reviewResult").value !== "Mendapat kedudukan",
+        );
+        if ($("reviewResult").value !== "Mendapat kedudukan")
+          $("reviewPosition").value = "";
+      }
+      $("reviewForm").onsubmit = async (e) => {
+        e.preventDefault();
+        const status = $("reviewStatus").value,
+          note = $("reviewNote").value.trim();
+        if (status === "DITOLAK / PERLU TINDAKAN" && !note)
+          return msg("reviewMessage", "Nyatakan alasan rekod ditolak.", "err");
+        try {
+          $("saveReview").disabled = true;
+          $("saveReview").innerHTML = '<span class="spinner"></span>Menyimpan';
+          await call(
+            "reviewRecord",
+            {
+              pin,
+              review: {
+                code: $("reviewCode").value,
+                status,
+                category: $("reviewCategory").value,
+                level: $("reviewLevel").value,
+                result: $("reviewResult").value,
+                position: $("reviewPosition").value,
+                note,
+                reviewer: $("reviewer").value.toUpperCase(),
+              },
+            },
+            60000,
+          );
+          msg(
+            "reviewMessage",
+            status === "DISAHKAN"
+              ? "Pengesahan berjaya disimpan. Rekod telah masuk ke Dashboard."
+              : "Keputusan berjaya disimpan. Rekod telah dikeluarkan daripada senarai semakan.",
+            "ok",
+          );
+          await loadDashboard();
+          setTimeout(() => {
+            closeReview();
+            show("review");
+          }, 1200);
+        } catch (e) {
+          msg("reviewMessage", e.message, "err");
+        } finally {
+          $("saveReview").disabled = false;
+          $("saveReview").textContent = "Simpan Pengesahan";
+        }
+      };
+      $("bulkAchievement").onchange = () =>
+        $("bulkPositionWrap").classList.toggle(
+          "hide",
+          $("bulkAchievement").value !== "Mendapat kedudukan",
+        );
+      $("bulkQuery").oninput = () => {
+        clearTimeout(timer);
+        const q = $("bulkQuery").value.trim();
+        if (q.length < 3) {
+          $("bulkSuggestions").innerHTML = "";
+          return;
+        }
+        timer = setTimeout(
+          () =>
+            renderSuggestions(
+              PAJSK_STUDENTS.filter((s) => s.nama.includes(q)).slice(0, 30),
+            ),
+          80,
+        );
+      };
+      function renderSuggestions(rows) {
+        $("bulkSuggestions").innerHTML = "";
+        rows.forEach((s) => {
+          const b = document.createElement("button");
+          b.type = "button";
+          b.className = "candidate";
+          b.innerHTML = esc(s.nama) + "<small>" + esc(s.kelas) + "</small>";
+          b.onclick = () => addStudent(s);
+          $("bulkSuggestions").appendChild(b);
+        });
+      }
+      function addStudent(s) {
+        if (selected.some((x) => x.id === s.id))
+          return msg("bulkMessage", "Murid sudah dipilih.", "err");
+        if (selected.length >= 30)
+          return msg("bulkMessage", "Maksimum 30 peserta.", "err");
+        selected.push(s);
+        $("bulkQuery").value = "";
+        $("bulkSuggestions").innerHTML = "";
+        renderSelected();
+      }
+      function removeStudent(id) {
+        selected = selected.filter((x) => x.id !== id);
+        renderSelected();
+      }
+      function renderSelected() {
+        const e = $("bulkParticipants");
+        e.innerHTML = selected.length
+          ? '<div class="status ok"><b>' +
+            selected.length +
+            " peserta dipilih</b></div>"
+          : "";
+        selected.forEach((s, i) => {
+          const d = document.createElement("div");
+          d.className = "candidate";
+          d.innerHTML =
+            '<div style="display:flex;justify-content:space-between;gap:8px"><span><b>' +
+            (i + 1) +
+            ". " +
+            esc(s.nama) +
+            "</b><small>" +
+            esc(s.kelas) +
+            '</small></span><button type="button" class="btn red">Buang</button></div>';
+          d.querySelector("button").onclick = () => removeStudent(s.id);
+          e.appendChild(d);
+        });
+      }
+      function fileData(f) {
+        return new Promise((res, rej) => {
+          const r = new FileReader();
+          r.onload = () => res(r.result);
+          r.onerror = rej;
+          r.readAsDataURL(f);
+        });
+      }
+      let apssTeams = [];
+      const normName = (v) =>
+        String(v || "")
+          .toUpperCase()
+          .replace(/[^A-Z0-9]/g, "");
+      async function loadBulkTools() {
+        try {
+          const [teams, missing] = await Promise.all([
+            call("getApssTeams", { pin, year: "2026" }, 40000),
+            call("getMissingCertificates", { pin }, 40000),
+          ]);
+          apssTeams = teams;
+          $("apssTeam").innerHTML =
+            '<option value="">Pilih pasukan yang telah disedut</option>' +
+            teams
+              .map(
+                (t) =>
+                  '<option value="' +
+                  esc(t.id) +
+                  '">' +
+                  esc(t.title) +
+                  " (" +
+                  t.athletes.length +
+                  " pemain)</option>",
+              )
+              .join("");
+          renderMissingCertificates(missing);
+        } catch (e) {
+          msg("apssMessage", e.message, "err");
+        }
+      }
+      $("importApssBtn").onclick = () => {
+        const team = apssTeams.find((t) => t.id === $("apssTeam").value);
+        if (!team)
+          return msg("apssMessage", "Pilih satu pasukan APSS dahulu.", "err");
+        const map = new Map(PAJSK_STUDENTS.map((s) => [normName(s.nama), s]));
+        const matched = [],
+          unmatched = [];
+        team.athletes.forEach((a) => {
+          const s = map.get(normName(a.name));
+          s ? matched.push(s) : unmatched.push(a.name);
+        });
+        selected = matched.slice(0, 30);
+        $("bulkActivity").value = team.title.toUpperCase();
+        setOption("bulkCategory", "Sukan dan Permainan", "Sukan dan Permainan");
+        setOption("bulkLevel", team.level, "Tidak pasti");
+        const manager = team.officers.find((o) => /PENGURUS/i.test(o.role));
+        const coach = team.officers.find((o) => /JURULATIH/i.test(o.role));
+        $("bulkSender").value = (manager || coach || {}).name || "";
+        renderSelected();
+        msg(
+          "apssMessage",
+          matched.length +
+            " pemain berjaya dipadankan." +
+            (unmatched.length ? " Tidak sepadan: " + unmatched.join(", ") : ""),
+          unmatched.length ? "err" : "ok",
+        );
+      };
+      function renderMissingCertificates(rows) {
+        const box = $("missingCertificates");
+        box.innerHTML = rows.length
+          ? ""
+          : '<div class="status ok">Tiada rekod menunggu sijil.</div>';
+        rows.forEach((r) => {
+          const d = document.createElement("div");
+          d.className = "candidate";
+          d.innerHTML =
+            "<b>" +
+            esc(r.activity) +
+            "</b><small>" +
+            esc(r.submitted) +
+            " • " +
+            r.count +
+            ' murid • MENUNGGU SIJIL</small><input type="file" accept="image/jpeg,image/png,application/pdf" style="margin-top:8px"><button type="button" class="btn green">Kemaskini Sijil</button>';
+          const input = d.querySelector("input"),
+            button = d.querySelector("button");
+          button.onclick = async () => {
+            const f = input.files[0];
+            if (!f || f.size > 6 * 1024 * 1024)
+              return alert("Pilih fail maksimum 6 MB.");
+            try {
+              button.disabled = true;
+              button.textContent = "Sedang memuat naik…";
+              await call(
+                "updateBatchCertificate",
+                {
+                  pin,
+                  batchCode: r.batchCode,
+                  file: { name: f.name, type: f.type, data: await fileData(f) },
+                },
+                120000,
+              );
+              await loadBulkTools();
+            } catch (e) {
+              alert(e.message);
+            } finally {
+              button.disabled = false;
+            }
+          };
+          box.appendChild(d);
+        });
+      }
+      $("bulkForm").onsubmit = async (e) => {
+        e.preventDefault();
+        if (!selected.length)
+          return msg(
+            "bulkMessage",
+            "Tambah sekurang-kurangnya seorang peserta.",
+            "err",
+          );
+        const f = $("bulkCertificate").files[0];
+        if (f && f.size > 6 * 1024 * 1024)
+          return msg("bulkMessage", "Pilih fail maksimum 6 MB.", "err");
+        try {
+          $("bulkBtn").disabled = true;
+          $("bulkBtn").innerHTML =
+            '<span class="spinner"></span>Sedang menghantar';
+          const r = await call(
+            "submitBulkCertificates",
+            {
+              pin,
+              studentIds: selected.map((x) => x.id),
+              activityName: $("bulkActivity").value.toUpperCase(),
+              activityDate: $("bulkDate").value,
+              category: $("bulkCategory").value,
+              level: $("bulkLevel").value,
+              achievement: $("bulkAchievement").value,
+              position:
+                $("bulkAchievement").value === "Mendapat kedudukan"
+                  ? $("bulkPosition").value
+                  : "",
+              senderRole: "Guru / Penyelaras",
+              senderName: $("bulkSender").value.toUpperCase(),
+              file: f
+                ? { name: f.name, type: f.type, data: await fileData(f) }
+                : {},
+            },
+            120000,
+          );
+          $("bulkMessage").innerHTML =
+            '<div class="status ok">Berjaya! ' +
+            r.count +
+            " rekod dicipta. Kod kumpulan: <b>" +
+            esc(r.batchCode) +
+            "</b></div>";
+          $("bulkForm").reset();
+          selected = [];
+          renderSelected();
+          await loadBulkTools();
+        } catch (e) {
+          msg("bulkMessage", e.message, "err");
+        } finally {
+          $("bulkBtn").disabled = false;
+          $("bulkBtn").textContent = "Hantar Semua Peserta";
+        }
+      };
+      async function loadAnnouncements() {
+        try {
+          renderAnnouncements(await call("getAnnouncements", { pin }, 30000));
+        } catch (e) {
+          msg("announcementMessage", e.message, "err");
+        }
+      }
+      function renderAnnouncements(items) {
+        const box = $("announcementList");
+        box.innerHTML = items.length
+          ? ""
+          : '<div class="status">Belum ada hebahan.</div>';
+        items.forEach((a) => {
+          const d = document.createElement("div");
+          d.className = "announcement-item" + (a.active ? "" : " off");
+          d.innerHTML =
+            "<b>" +
+            esc(a.message) +
+            '</b><small style="display:block;margin:7px 0;color:#667">' +
+            esc(a.date) +
+            " • " +
+            esc(a.by) +
+            " • " +
+            (a.active ? "AKTIF" : "DINYAHAKTIF") +
+            '</small><div class="actions"><button type="button" class="btn soft edit">Edit</button><button type="button" class="btn ' +
+            (a.active ? "red" : "green") +
+            ' toggle">' +
+            (a.active ? "Nyahaktif" : "Aktifkan") +
+            "</button></div>";
+          d.querySelector(".edit").onclick = () => editAnnouncement(a);
+          d.querySelector(".toggle").onclick = () =>
+            toggleAnnouncement(a.id, !a.active);
+          box.appendChild(d);
+        });
+      }
+      function editAnnouncement(a) {
+        $("announcementId").value = a.id;
+        $("announcementText").value = a.message;
+        $("announcementBy").value = a.by;
+        $("announcementBtn").textContent = "Simpan Perubahan";
+        $("cancelAnnouncement").classList.remove("hide");
+        scrollTo({ top: 0, behavior: "smooth" });
+      }
+      function resetAnnouncement() {
+        $("announcementForm").reset();
+        $("announcementId").value = "";
+        $("announcementBtn").textContent = "Terbitkan Hebahan";
+        $("cancelAnnouncement").classList.add("hide");
+      }
+      $("cancelAnnouncement").onclick = resetAnnouncement;
+      async function toggleAnnouncement(id, active) {
+        try {
+          const r = await call(
+            "setAnnouncementActive",
+            { pin, id, active },
+            30000,
+          );
+          renderAnnouncements(r.items);
+          await loadTicker();
+        } catch (e) {
+          msg("announcementMessage", e.message, "err");
+        }
+      }
+      $("announcementForm").onsubmit = async (e) => {
+        e.preventDefault();
+        try {
+          $("announcementBtn").disabled = true;
+          const r = await call(
+            "saveAnnouncement",
+            {
+              pin,
+              announcement: {
+                id: $("announcementId").value,
+                message: $("announcementText").value,
+                by: $("announcementBy").value,
+              },
+            },
+            30000,
+          );
+          resetAnnouncement();
+          msg("announcementMessage", "Hebahan berjaya disimpan.", "ok");
+          renderAnnouncements(r.items);
+          await loadTicker();
+        } catch (e) {
+          msg("announcementMessage", e.message, "err");
+        } finally {
+          $("announcementBtn").disabled = false;
+        }
+      };
+    </script>
+  </body>
+</html>
