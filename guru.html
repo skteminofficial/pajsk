@@ -470,6 +470,7 @@
               >0</span
             ></button
           ><button class="tab" data-view="bulk">Hantar Pukal</button
+          ><button class="tab" data-view="individual">Hantar Individu (No. 1–5)</button
           ><button class="tab" data-view="announcements">Urus Hebahan</button>
         </nav>
         <section id="dashboard" class="view">
@@ -642,6 +643,57 @@
             <div id="missingCertificates"></div>
           </div>
         </section>
+        <section id="individual" class="view hide">
+          <div class="card">
+            <h2 style="margin-top:0;font-size:17px">Hantar Pencapaian Individu — No. 1 hingga No. 5</h2>
+            <div class="notice">Isi maklumat pertandingan sekali. Pilih murid mengikut kedudukan masing-masing; tinggalkan kedudukan yang tidak berkenaan. Sekurang-kurangnya seorang murid diperlukan. Rekod akan disemak oleh guru sebelum disahkan.</div>
+            <form id="individualForm" style="margin-top:14px">
+              <fieldset id="individualFields" class="grid" style="border:0;padding:0;margin:0;min-width:0">
+              <div>
+                <label>NAMA GURU / PENGURUS</label
+                ><input id="individualSender" required />
+              </div>
+              <div>
+                <label>NAMA PERTANDINGAN / PROGRAM</label
+                ><input id="individualActivity" required />
+              </div>
+              <div>
+                <label>TARIKH AKTIVITI</label
+                ><input id="individualDate" type="date" />
+              </div>
+              <div>
+                <label>KATEGORI</label
+                ><select id="individualCategory">
+                  <option>Tidak pasti</option>
+                  <option>Sukan dan Permainan</option>
+                  <option>Unit Beruniform</option>
+                  <option>Kelab dan Persatuan</option>
+                </select>
+              </div>
+              <div>
+                <label>PERINGKAT</label
+                ><select id="individualLevel">
+                  <option>Tidak pasti</option>
+                  <option>Sekolah</option>
+                  <option>Zon</option>
+                  <option>Daerah</option>
+                  <option>Negeri</option>
+                  <option>Kebangsaan</option>
+                  <option>Antarabangsa</option>
+                </select>
+              </div>
+                <div id="individualRanks" class="full"></div>
+                <div class="full">
+                  <label for="individualCertificate">SIJIL / BUKTI CONTOH (PILIHAN • MAKSIMUM 6 MB)</label>
+                  <input id="individualCertificate" type="file" accept="image/jpeg,image/png,application/pdf" />
+                  <p class="small">Sijil boleh dikemas kini kemudian melalui Hantar Pukal → Menunggu Sijil.</p>
+                </div>
+                <button type="submit" class="btn green full" id="individualBtn">Hantar Pencapaian Individu</button>
+              </fieldset>
+            </form>
+            <div id="individualMessage" role="status" aria-live="polite"></div>
+          </div>
+        </section>
         <section id="announcements" class="view hide">
           <div class="card">
             <div class="notice">
@@ -797,6 +849,8 @@
         "bulkSender",
         "bulkActivity",
         "bulkQuery",
+        "individualSender",
+        "individualActivity",
         "announcementBy",
         "announcementText",
         "reviewer",
@@ -1487,6 +1541,104 @@
         } finally {
           $("bulkBtn").disabled = false;
           $("bulkBtn").textContent = "Hantar Semua Peserta";
+        }
+      };
+      const individualPositions = ["Johan", "Naib Johan", "Ketiga", "Keempat", "Kelima"];
+      const individualStudents = Array(5).fill(null);
+      function renderIndividualRanks() {
+        $("individualRanks").innerHTML = "";
+        individualPositions.forEach((position, index) => {
+          const row = document.createElement("div");
+          row.style.cssText = "border:1px solid var(--line);border-radius:14px;padding:12px;margin-top:10px";
+          row.innerHTML = `<label for="individualQuery${index}">NO. ${index + 1} — ${esc(position.toUpperCase())}</label>
+            <input id="individualQuery${index}" placeholder="Cari nama murid (sekurang-kurangnya 3 huruf)" autocomplete="off" />
+            <div id="individualSuggestions${index}" class="suggest"></div>
+            <div id="individualSelected${index}" class="small" aria-live="polite"></div>
+            <button type="button" id="individualClear${index}" class="btn soft hide" style="margin-top:8px">Kosongkan No. ${index + 1}</button>`;
+          $("individualRanks").appendChild(row);
+          const input = $("individualQuery" + index);
+          const suggestions = $("individualSuggestions" + index);
+          const clear = $("individualClear" + index);
+          const summary = $("individualSelected" + index);
+          clear.onclick = () => {
+            individualStudents[index] = null;
+            input.value = "";
+            summary.textContent = "";
+            suggestions.innerHTML = "";
+            clear.classList.add("hide");
+            input.focus();
+          };
+          input.oninput = () => {
+            input.value = input.value.toUpperCase();
+            individualStudents[index] = null;
+            summary.textContent = "";
+            clear.classList.toggle("hide", !input.value);
+            suggestions.innerHTML = "";
+            const query = input.value.trim();
+            if (query.length < 3) return;
+            const matches = PAJSK_STUDENTS.filter(student =>
+              student.nama.toUpperCase().includes(query) &&
+              !individualStudents.some(chosen => chosen && chosen.id === student.id)
+            ).slice(0,30);
+            if (!matches.length) {
+              suggestions.textContent = "Tiada padanan yang belum dipilih.";
+            }
+            matches.forEach(student => {
+              const button = document.createElement("button");
+              button.type = "button";
+              button.className = "candidate";
+              button.innerHTML = esc(student.nama) + "<small>" + esc(student.kelas) + "</small>";
+              button.onclick = () => {
+                if (individualStudents.some(chosen => chosen && chosen.id === student.id))
+                  return msg("individualMessage", "Murid yang sama tidak boleh mempunyai dua kedudukan.", "err");
+                individualStudents[index] = student;
+                input.value = student.nama;
+                summary.textContent = "Kelas: " + student.kelas + " • No. " + (index + 1) + " — " + position;
+                suggestions.innerHTML = "";
+                clear.classList.remove("hide");
+              };
+              suggestions.appendChild(button);
+            });
+          };
+        });
+      }
+      renderIndividualRanks();
+      $("individualForm").onsubmit = async event => {
+        event.preventDefault();
+        const participants = [];
+        for (let index = 0; index < 5; index++) {
+          const student = individualStudents[index];
+          if ($("individualQuery" + index).value.trim() && !student)
+            return msg("individualMessage", "Pilih nama daripada hasil carian untuk No. " + (index + 1) + ".", "err");
+          if (student) participants.push({ studentId: student.id, rank: index + 1 });
+        }
+        if (!participants.length)
+          return msg("individualMessage", "Pilih sekurang-kurangnya seorang murid bagi No. 1 hingga No. 5.", "err");
+        const file = $("individualCertificate").files[0];
+        if (file && file.size > 6 * 1024 * 1024)
+          return msg("individualMessage", "Pilih fail maksimum 6 MB.", "err");
+        try {
+          $("individualFields").disabled = true;
+          $("individualBtn").textContent = "Sedang menghantar…";
+          const result = await call("submitIndividualCertificates", {
+            pin, participants,
+            activityName: $("individualActivity").value.trim().toUpperCase(),
+            activityDate: $("individualDate").value,
+            category: $("individualCategory").value,
+            level: $("individualLevel").value,
+            senderName: $("individualSender").value.trim().toUpperCase(),
+            senderRole: "Guru / Penyelaras",
+            file: file ? {name:file.name, type:file.type, data:await fileData(file)} : {},
+          }, 120000);
+          msg("individualMessage", "Berjaya! " + result.count + " rekod individu dihantar dengan kedudukan masing-masing untuk semakan. Kod kumpulan: " + result.batchCode);
+          $("individualForm").reset();
+          individualStudents.fill(null);
+          renderIndividualRanks();
+        } catch (error) {
+          msg("individualMessage", error.message, "err");
+        } finally {
+          $("individualFields").disabled = false;
+          $("individualBtn").textContent = "Hantar Pencapaian Individu";
         }
       };
       async function loadAnnouncements() {
