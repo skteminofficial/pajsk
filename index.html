@@ -33,7 +33,16 @@
     </form><div id="submitMessage"></div>
   </div></section>
 
-  <section id="status" class="view hide"><div class="card"><label>KOD RUJUKAN</label><div style="display:flex;gap:8px"><input id="statusCode" placeholder="Contoh: PAJSK-260913-A7K4"><button class="btn" id="checkBtn">Semak</button></div><div id="statusResult"></div></div></section>
+  <section id="status" class="view hide"><div class="card">
+    <h2 style="margin-top:0;font-size:19px">Semak Rekod Menggunakan Nama Anak</h2>
+    <label for="statusStudentQuery">CARI DAN PILIH NAMA ANAK</label>
+    <input id="statusStudentQuery" autocomplete="off" placeholder="Taip sekurang-kurangnya 3 huruf nama anak">
+    <div id="statusStudentSuggestions" class="suggest"></div>
+    <div id="statusStudentSelected" class="hide"></div>
+    <button type="button" class="btn" id="checkStudentBtn" disabled style="margin-top:12px">Semak Rekod Anak</button>
+    <div id="studentStatusResult" role="status" aria-live="polite"></div>
+    <details style="margin-top:20px"><summary style="cursor:pointer;font-weight:800">Semak menggunakan kod rujukan (pilihan)</summary>
+    <label style="margin-top:12px" for="statusCode">KOD RUJUKAN</label><div style="display:flex;gap:8px"><input id="statusCode" placeholder="Contoh: PAJSK-260913-A7K4"><button class="btn" id="checkBtn">Semak</button></div><div id="statusResult"></div></details></div></section>
   <section id="teacher" class="view hide"><iframe id="teacherFrame" class="teacher-frame" title="Portal Guru PAJSK"></iframe></section>
   <p class="foot">Unit Kokurikulum • Sekolah Kebangsaan Temin</p>
 </main>
@@ -53,8 +62,53 @@ function renderStudents(rows){$('suggestions').innerHTML='';if(!rows.length){$('
 function toData(file){return new Promise((res,rej)=>{const r=new FileReader;r.onload=()=>res(r.result);r.onerror=()=>rej(new Error('Fail tidak dapat dibaca.'));r.readAsDataURL(file)})}
 $('recordForm').onsubmit=async e=>{e.preventDefault();if(pendingSubmit)return;if(!selected)return msg('submitMessage','Sila cari dan pilih nama anak daripada senarai.','err');const file=$('certificate').files[0];if(!file)return;if(file.size>6*1024*1024)return msg('submitMessage','Fail melebihi 6 MB.','err');pendingSubmit=true;pendingToken=Date.now().toString(36)+Math.random().toString(36).slice(2);$('submitBtn').disabled=true;$('submitBtn').innerHTML='<span class="spinner"></span>Sedang menghantar';msg('submitMessage','Jangan tutup halaman sehingga kod rujukan dipaparkan.');try{const payload={_requestId:pendingToken,studentId:selected.id,activityName:$('activityName').value.toUpperCase(),activityDate:$('activityDate').value,category:$('category').value,level:$('level').value,achievement:$('achievement').value,position:$('achievement').value==='Mendapat kedudukan'?$('position').value:'',senderRole:'Ibu Bapa / Penjaga',senderName:$('senderName').value.toUpperCase(),phone:$('phone').value,file:{name:file.name,type:file.type,data:await toData(file)}};const f=document.createElement('form');f.method='POST';f.action=API;f.target='submitFrame';f.className='hide';const a=document.createElement('input');a.name='action';a.value='submitCertificate';const rid=document.createElement('input');rid.name='requestId';rid.value=pendingToken;const p=document.createElement('textarea');p.name='payload';p.value=JSON.stringify(payload);f.append(a,rid,p);document.body.appendChild(f);f.submit();setTimeout(()=>f.remove(),1000);submitTimeout=setTimeout(()=>{finishSubmit();msg('submitMessage','Penghantaran mengambil masa terlalu lama. Semak internet dan cuba sekali lagi.','err')},75000)}catch(err){finishSubmit();msg('submitMessage',err.message,'err')}};
 function finishSubmit(){if(submitTimeout)clearTimeout(submitTimeout);submitTimeout=null;pendingSubmit=false;pendingToken='';$('submitBtn').disabled=false;$('submitBtn').textContent='Hantar Rekod'}
-window.addEventListener('message',e=>{const r=e.data||{};if(!pendingSubmit||!pendingToken||r.requestId!==pendingToken)return;finishSubmit();if(!r.ok)return msg('submitMessage',r.error||'Penghantaran gagal.','err');const x=r.result;$('submitMessage').innerHTML='<div class="result"><b>Sijil berjaya dihantar!</b><br>Status: <span class="pill">'+esc(x.status)+'</span><p>Kod rujukan:</p><div class="code">'+esc(x.code)+'</div><p>Simpan kod ini untuk semakan status.</p><button type="button" class="btn secondary" id="copyCode">Salin Kod</button></div>';$('copyCode').onclick=()=>navigator.clipboard.writeText(x.code);$('recordForm').reset();selected=null;$('selectedStudent').classList.add('hide')});
+window.addEventListener('message',e=>{const r=e.data||{};if(!pendingSubmit||!pendingToken||r.requestId!==pendingToken)return;finishSubmit();if(!r.ok)return msg('submitMessage',r.error||'Penghantaran gagal.','err');const x=r.result;$('submitMessage').innerHTML='<div class="result"><b>Sijil berjaya dihantar!</b><br>Status: <span class="pill">'+esc(x.status)+'</span><p>Kod rujukan:</p><div class="code">'+esc(x.code)+'</div><p>Semak status melalui nama anak di menu Semak Status. Kod ini juga boleh disimpan sebagai rujukan.</p><button type="button" class="btn secondary" id="copyCode">Salin Kod</button></div>';$('copyCode').onclick=()=>navigator.clipboard.writeText(x.code);$('recordForm').reset();selected=null;$('selectedStudent').classList.add('hide')});
 window.addEventListener('message',e=>{const r=e.data||{};if(r.requestId&&$('teacherFrame').contentWindow)$('teacherFrame').contentWindow.postMessage(r,'*')});
+
+let statusStudent=null,statusGeneration=0;
+$('statusStudentQuery').oninput=()=>{
+  statusGeneration++;statusStudent=null;$('checkStudentBtn').disabled=true;
+  $('statusStudentSelected').className='hide';$('studentStatusResult').innerHTML='';
+  const input=$('statusStudentQuery');input.value=input.value.toUpperCase();
+  const query=input.value.trim().replace(/\s+/g,' '),box=$('statusStudentSuggestions');box.innerHTML='';
+  if(query.length<3)return;
+  const students=typeof PAJSK_STUDENTS==='undefined'?[]:PAJSK_STUDENTS;
+  const matches=students.filter(s=>s.nama.toUpperCase().includes(query)).slice(0,30);
+  if(!matches.length){box.textContent='Nama tidak ditemui. Cuba ejaan lain.';return}
+  matches.forEach(student=>{
+    const button=document.createElement('button');button.type='button';button.className='candidate';
+    button.innerHTML=esc(student.nama)+'<small>'+esc(student.kelas)+'</small>';
+    button.onclick=()=>{
+      statusGeneration++;statusStudent=student;input.value=student.nama;box.innerHTML='';
+      $('statusStudentSelected').className='result';
+      $('statusStudentSelected').innerHTML='<b>'+esc(student.nama)+'</b><br>'+esc(student.kelas);
+      $('checkStudentBtn').disabled=false;loadStudentStatus();
+    };box.appendChild(button);
+  });
+};
+async function loadStudentStatus(){
+  if(!statusStudent)return;
+  const generation=++statusGeneration,student=statusStudent;
+  $('checkStudentBtn').disabled=true;msg('studentStatusResult','Sedang menyemak rekod anak…');
+  try{
+    const response=await jsonp({action:'checkStudentStatus',studentId:student.id});
+    if(generation!==statusGeneration)return;
+    if(!response.ok) return msg('studentStatusResult',response.message||response.error||'Semakan gagal.','err');
+    const rows=response.records||[],box=$('studentStatusResult');box.className='';box.innerHTML='';
+    if(!rows.length){msg('studentStatusResult','Belum ada rekod sijil untuk '+student.nama+'.');return}
+    const count=document.createElement('p');count.textContent=rows.length+' rekod sijil ditemui.';box.appendChild(count);
+    rows.forEach(record=>{
+      const card=document.createElement('article');card.className='result';card.style.marginTop='10px';
+      card.innerHTML='<b>'+esc(record.activity)+'</b><p>Status: <span class="pill">'+esc(record.status)+'</span></p>'+
+        '<p>'+esc(record.category)+' • '+esc(record.level)+'<br>'+esc(record.position||record.result)+'</p>'+
+        '<small>Tarikh dihantar: '+esc(record.submitted)+'</small>'+
+        (record.note?'<p>Catatan guru: '+esc(record.note)+'</p>':'');box.appendChild(card);
+    });
+  }catch(error){if(generation===statusGeneration)msg('studentStatusResult',error.message,'err')}
+  finally{if(generation===statusGeneration)$('checkStudentBtn').disabled=false}
+}
+$('checkStudentBtn').onclick=loadStudentStatus;
+
 $('checkBtn').onclick=async()=>{const code=$('statusCode').value.trim();if(!code)return;msg('statusResult','Sedang menyemak...');try{const r=await jsonp({action:'checkStatus',code});if(!r.ok)return msg('statusResult',r.message||r.error||'Kod tidak ditemui.','err');const x=r.record;$('statusResult').innerHTML='<div class="result"><div class="code">'+esc(x.code)+'</div><b>'+esc(x.student)+'</b> • '+esc(x.className)+'<br>'+esc(x.activity)+'<p>Status: <span class="pill">'+esc(x.status)+'</span></p>'+(x.note?'<p>Catatan: '+esc(x.note)+'</p>':'')+'</div>'}catch(e){msg('statusResult',e.message,'err')}};
 </script>
 </body></html>
