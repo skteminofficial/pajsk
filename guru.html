@@ -264,6 +264,11 @@
         border-top: 1px dashed #dbe5ed;
         font-size: 11px;
       }
+      button.name-row {
+        display:block;width:100%;background:transparent;border-right:0;border-left:0;border-bottom:0;
+        text-align:left;color:inherit;font-family:inherit;cursor:pointer;
+      }
+      button.name-row:hover,button.name-row:focus-visible {background:#e8f2fb;outline:2px solid var(--b);outline-offset:1px;}
       .name-row:first-of-type {
         border-top: 0;
       }
@@ -737,6 +742,13 @@
         </section>
       </div>
     </main>
+    <div id="studentModal" class="modal hide" role="dialog" aria-modal="true" aria-labelledby="studentModalTitle">
+      <div class="modal-box" tabindex="-1">
+        <div class="modal-head"><h3 id="studentModalTitle">Sijil Murid</h3><button type="button" class="btn soft" id="closeStudentModal" aria-label="Tutup senarai sijil murid">Tutup</button></div>
+        <p class="small">Semua sijil yang telah disahkan untuk murid ini, merangkumi ketiga-tiga komponen.</p>
+        <div id="studentCertificates"></div>
+      </div>
+    </div>
     <div id="reviewModal" class="modal hide">
       <div class="modal-box">
         <div class="modal-head">
@@ -1040,9 +1052,10 @@
           rows
             .filter((r) => r.category === cat)
             .forEach((r) => {
-              const k = r.student + "|" + r.className;
+              const k = studentRecordKey(r);
               grouped[k] ??= {
                 student: r.student,
+                studentId: r.studentId,
                 className: r.className,
                 count: 0,
                 highest: r.level,
@@ -1070,8 +1083,8 @@
             (list.length
               ? list
                   .map(
-                    (r) =>
-                      '<div class="name-row"><b>' +
+                    (r, index) =>
+                      '<button type="button" class="name-row" data-student-index="' + index + '" title="Klik untuk lihat senarai sijil"><b>' +
                       esc(r.student) +
                       "</b><br>" +
                       esc(r.className) +
@@ -1079,13 +1092,62 @@
                       esc(r.highest) +
                       " • " +
                       r.count +
-                      " sijil</div>",
+                      " sijil • Lihat sijil →</button>",
                   )
                   .join("")
               : "<small>Tiada rekod mengikut tapisan.</small>");
+          d.querySelectorAll("[data-student-index]").forEach(button => {
+            button.onclick = () => openStudentCertificates(list[Number(button.dataset.studentIndex)], button);
+          });
           box.appendChild(d);
         });
       }
+      function studentRecordKey(record) {
+        return record.studentId ? "id:" + record.studentId : "name:" + record.student + "|" + record.className;
+      }
+      let studentModalTrigger = null;
+      function openStudentCertificates(student, trigger) {
+        studentModalTrigger = trigger;
+        const records = allRows.filter(record => record.status === "DISAHKAN" && studentRecordKey(record) === studentRecordKey(student));
+        $("studentModalTitle").textContent = student.student + " • " + student.className;
+        const box = $("studentCertificates");
+        box.innerHTML = "";
+        if (!records.length) box.textContent = "Belum ada sijil yang disahkan.";
+        records.forEach(record => {
+          const card = document.createElement("article");
+          card.className = "card";
+          card.innerHTML = "<h4 style='margin:0 0 8px'>" + esc(record.activity) + "</h4><p class='small'>" +
+            esc(record.category) + " • " + esc(record.level) + "</p><p><b>" + esc(record.position || record.result) +
+            "</b></p><p class='small'>Tarikh aktiviti: " + esc(record.activityDate || "Tidak dinyatakan") +
+            "<br>Kod rujukan: " + esc(record.code) + "</p>";
+          if (record.fileUrl) {
+            const button = document.createElement("button");
+            button.type = "button"; button.className = "btn soft"; button.textContent = "Lihat sijil";
+            button.onclick = () => viewCertificate(record.code);
+            card.appendChild(button);
+          } else {
+            const label = document.createElement("span");label.className = "pill";label.textContent = "MENUNGGU SIJIL";card.appendChild(label);
+          }
+          box.appendChild(card);
+        });
+        $("studentModal").classList.remove("hide");
+        $("closeStudentModal").focus();
+      }
+      function closeStudentCertificates() {
+        $("studentModal").classList.add("hide");
+        if (studentModalTrigger && studentModalTrigger.isConnected) studentModalTrigger.focus();
+      }
+      $("closeStudentModal").onclick = closeStudentCertificates;
+      $("studentModal").onclick = event => {if (event.target === $("studentModal")) closeStudentCertificates();};
+      $("studentModal").addEventListener("keydown", event => {
+        if (event.key === "Escape") {event.preventDefault();closeStudentCertificates();}
+        if (event.key === "Tab") {
+          const buttons = [...$("studentModal").querySelectorAll("button:not([disabled])")];
+          const first = buttons[0], last = buttons[buttons.length - 1];
+          if (event.shiftKey && document.activeElement === first) {event.preventDefault();last.focus();}
+          else if (!event.shiftKey && document.activeElement === last) {event.preventDefault();first.focus();}
+        }
+      });
       const levelScore = {
           Antarabangsa: 7,
           Kebangsaan: 6,
