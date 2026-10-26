@@ -106,8 +106,7 @@
       #bulkSender,
       #fClass,
       #reviewer,
-      #announcementBy,
-      #announcementText {
+      #announcementBy {
         text-transform: uppercase;
       }
       .btn {
@@ -314,6 +313,12 @@
         color: #fff;
         box-shadow: 0 8px 22px #a70f2d42;
       }
+      .ticker {cursor:pointer;touch-action:pan-y;}
+      .ticker.paused .ticker-track,.ticker:focus-visible .ticker-track {animation-play-state:paused;}
+      .ticker:focus-visible {outline:3px solid var(--b);outline-offset:3px;}
+      .announcement-detail {white-space:pre-wrap;overflow-wrap:anywhere;line-height:1.65;}
+      .announcement-detail a {color:var(--b);text-decoration:underline;font-weight:800;}
+      @media (prefers-reduced-motion:reduce) {.ticker-track {animation:none;padding-left:12px;}}
       .ticker-label {
         position: relative;
         z-index: 2;
@@ -432,7 +437,13 @@
         .card {
           padding: 13px;
         }
-        .ticker-label {
+        .ticker {cursor:pointer;touch-action:pan-y;}
+      .ticker.paused .ticker-track,.ticker:focus-visible .ticker-track {animation-play-state:paused;}
+      .ticker:focus-visible {outline:3px solid var(--b);outline-offset:3px;}
+      .announcement-detail {white-space:pre-wrap;overflow-wrap:anywhere;line-height:1.65;}
+      .announcement-detail a {color:var(--b);text-decoration:underline;font-weight:800;}
+      @media (prefers-reduced-motion:reduce) {.ticker-track {animation:none;padding-left:12px;}}
+      .ticker-label {
           padding: 10px 7px;
         }
       }
@@ -444,8 +455,8 @@
         <h1>📋 Pengurusan PAJSK Guru</h1>
         <p>SK Temin • Guru Kelas, Penyelaras PAJSK &amp; SU Kokurikulum</p>
       </header>
-      <aside id="teacherTicker" class="ticker hide">
-        <div class="ticker-label">📢 HEBAHAN</div>
+      <aside id="teacherTicker" class="ticker hide" role="button" tabindex="0" aria-haspopup="dialog" aria-controls="announcementModal" aria-label="Hebahan PAJSK. Klik atau tekan Enter untuk butiran dan pautan.">
+        <div class="ticker-label">📢 HEBAHAN<br><small>Klik / sentuh</small></div>
         <div class="ticker-window">
           <div id="teacherTickerTrack" class="ticker-track"></div>
         </div>
@@ -716,6 +727,12 @@
                   maxlength="500"
                   required
                 ></textarea>
+                <p class="small">Masukkan maklumat hebahan di sini. Gunakan ruang Pautan di bawah untuk URL.</p>
+              </div>
+              <div class="full">
+                <label for="announcementUrl">PAUTAN (PILIHAN)</label>
+                <input id="announcementUrl" type="url" inputmode="url" autocomplete="off" maxlength="2048" placeholder="https://forms.gle/..." />
+                <p class="small">Pautan akan dipaparkan sebagai butang Buka Pautan dalam popup.</p>
               </div>
               <div>
                 <label>DITERBITKAN OLEH</label
@@ -742,6 +759,12 @@
         </section>
       </div>
     </main>
+    <div id="announcementModal" class="modal hide" role="dialog" aria-modal="true" aria-labelledby="announcementModalTitle">
+      <div class="modal-box">
+        <div class="modal-head"><h3 id="announcementModalTitle">📢 Hebahan PAJSK</h3><button type="button" class="btn soft" id="closeAnnouncementModal">Tutup</button></div>
+        <div id="announcementDetails"></div>
+      </div>
+    </div>
     <div id="studentModal" class="modal hide" role="dialog" aria-modal="true" aria-labelledby="studentModalTitle">
       <div class="modal-box" tabindex="-1">
         <div class="modal-head"><h3 id="studentModalTitle">Sijil Murid</h3><button type="button" class="btn soft" id="closeStudentModal" aria-label="Tutup senarai sijil murid">Tutup</button></div>
@@ -864,7 +887,6 @@
         "individualSender",
         "individualActivity",
         "announcementBy",
-        "announcementText",
         "reviewer",
       ].forEach(upper);
       [...new Set(PAJSK_STUDENTS.map((s) => s.kelas).filter(Boolean))]
@@ -970,13 +992,99 @@
       };
       const savedPin = localStorage.getItem("pajskTeacherPin");
       if (savedPin) login(savedPin, true);
+      let tickerAnnouncements = [], tickerHover = false, tickerTouch = false, tickerDialogOpen = false;
+      let tickerKeyboardOpen = false;
+      function updateTickerPause() {
+        $("teacherTicker").classList.toggle("paused", tickerHover || tickerTouch || tickerDialogOpen);
+      }
+      // Build links as DOM nodes. Never interpret announcement text as HTML.
+      function appendAnnouncementText(container, text) {
+        const value = String(text || "");
+        const pattern = /https?:\/\/[^\s<>"']+|www\.[^\s<>"']+/gi;
+        let match, offset = 0;
+        while ((match = pattern.exec(value))) {
+          let candidate = match[0].replace(/[.,;!]+$/, "");
+          for (const [open, close] of [["(", ")"], ["[", "]"], ["{", "}"]]) {
+            while (candidate.endsWith(close) && candidate.split(close).length > candidate.split(open).length)
+              candidate = candidate.slice(0, -1);
+          }
+          container.appendChild(document.createTextNode(value.slice(offset, match.index)));
+          try {
+            const url = new URL(/^www\./i.test(candidate) ? "https://" + candidate : candidate);
+            if (!["https:", "http:"].includes(url.protocol)) throw new Error("Invalid protocol");
+            const link = document.createElement("a");
+            link.href = url.href;link.textContent = candidate;link.target = "_blank";link.rel = "noopener noreferrer";
+            container.appendChild(link);
+          } catch (_) {container.appendChild(document.createTextNode(candidate));}
+          container.appendChild(document.createTextNode(match[0].slice(candidate.length)));
+          offset = match.index + match[0].length;
+        }
+        container.appendChild(document.createTextNode(value.slice(offset)));
+      }
+      function announcementLink(value) {
+        if (!value) return null;
+        try {
+          const url = new URL(value);
+          if (!["https:","http:"].includes(url.protocol)) return null;
+          const link = document.createElement("a");
+          link.href=url.href;link.textContent="Buka Pautan ↗";link.className="btn soft";
+          link.style.display="inline-block";link.style.marginTop="8px";
+          link.target="_blank";link.rel="noopener noreferrer";
+          return link;
+        } catch (_) {return null;}
+      }
+      function openAnnouncementDetails(keyboard = false) {
+        if (!tickerAnnouncements.length) return;
+        tickerKeyboardOpen = keyboard;
+        const box = $("announcementDetails");box.innerHTML = "";
+        tickerAnnouncements.forEach(announcement => {
+          const card = document.createElement("article");card.className = "card";
+          const text = document.createElement("div");text.className = "announcement-detail";
+          appendAnnouncementText(text, announcement.message);
+          const meta = document.createElement("p");meta.className = "small";
+          meta.textContent = [announcement.date, announcement.by].filter(Boolean).join(" • ");
+          card.append(text, meta);
+          const link = announcementLink(announcement.url);
+          if (link) card.appendChild(link);
+          box.appendChild(card);
+        });
+        tickerDialogOpen = true;updateTickerPause();
+        $("announcementModal").classList.remove("hide");$("closeAnnouncementModal").focus();
+      }
+      function closeAnnouncementDetails() {
+        tickerDialogOpen = false;tickerTouch = false;
+        $("announcementModal").classList.add("hide");updateTickerPause();
+        if (tickerKeyboardOpen) $("teacherTicker").focus();
+      }
+      $("teacherTicker").addEventListener("pointerenter", event => {if(event.pointerType === "mouse"){tickerHover=true;updateTickerPause();}});
+      $("teacherTicker").addEventListener("pointerleave", event => {if(event.pointerType === "mouse"){tickerHover=false;updateTickerPause();}});
+      $("teacherTicker").addEventListener("pointerdown", () => {tickerTouch=true;updateTickerPause();});
+      window.addEventListener("pointerup", () => {tickerTouch=false;updateTickerPause();});
+      window.addEventListener("pointercancel", () => {tickerTouch=false;updateTickerPause();});
+      $("teacherTicker").onclick = event => openAnnouncementDetails(event.detail === 0);
+      $("teacherTicker").addEventListener("keydown", event => {
+        if(event.key === "Enter" || event.key === " "){event.preventDefault();openAnnouncementDetails(true);}
+      });
+      $("closeAnnouncementModal").onclick = closeAnnouncementDetails;
+      $("announcementModal").onclick = event => {if(event.target === $("announcementModal"))closeAnnouncementDetails();};
+      $("announcementModal").addEventListener("keydown", event => {
+        if(event.key === "Escape"){event.preventDefault();closeAnnouncementDetails();}
+        if(event.key === "Tab"){
+          const focusable = [...$("announcementModal").querySelectorAll("button,a[href]")];
+          const first = focusable[0], last = focusable[focusable.length - 1];
+          if(event.shiftKey && document.activeElement === first){event.preventDefault();last.focus();}
+          else if(!event.shiftKey && document.activeElement === last){event.preventDefault();first.focus();}
+        }
+      });
       async function loadTicker() {
         try {
           const items = (await call("getAnnouncements", { pin }, 30000)).filter(
               (x) => x.active,
             ),
             box = $("teacherTicker");
+          tickerAnnouncements = items;
           if (!items.length) {
+            if (tickerDialogOpen) closeAnnouncementDetails();
             box.classList.add("hide");
             return;
           }
@@ -1732,6 +1840,8 @@
             ' toggle">' +
             (a.active ? "Nyahaktif" : "Aktifkan") +
             "</button></div>";
+          const link = announcementLink(a.url);
+          if (link) d.appendChild(link);
           d.querySelector(".edit").onclick = () => editAnnouncement(a);
           d.querySelector(".toggle").onclick = () =>
             toggleAnnouncement(a.id, !a.active);
@@ -1741,6 +1851,7 @@
       function editAnnouncement(a) {
         $("announcementId").value = a.id;
         $("announcementText").value = a.message;
+        $("announcementUrl").value = a.url || "";
         $("announcementBy").value = a.by;
         $("announcementBtn").textContent = "Simpan Perubahan";
         $("cancelAnnouncement").classList.remove("hide");
@@ -1777,6 +1888,7 @@
               announcement: {
                 id: $("announcementId").value,
                 message: $("announcementText").value,
+                url: $("announcementUrl").value.trim(),
                 by: $("announcementBy").value,
               },
             },
