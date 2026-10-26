@@ -1236,6 +1236,13 @@
           } else {
             const label = document.createElement("span");label.className = "pill";label.textContent = "MENUNGGU SIJIL";card.appendChild(label);
           }
+          if (record.recognitionFileUrl) {
+            const button = document.createElement("button");
+            button.type="button";button.className="btn soft";button.style.margin="8px";
+            button.textContent="Lihat surat pengiktirafan";
+            button.onclick=()=>viewCertificate(record.code,"recognition");
+            card.appendChild(button);
+          }
           box.appendChild(card);
         });
         $("studentModal").classList.remove("hide");
@@ -1350,6 +1357,7 @@
             (r.fileUrl
               ? '<br><button type="button" class="btn soft certificate" style="padding:6px 9px;margin-top:5px">Lihat sijil</button>'
               : '<br><span class="pill" style="margin-top:5px">MENUNGGU SIJIL</span>') +
+            (r.recognitionFileUrl ? '<br><button type="button" class="btn soft recognition" style="padding:6px 9px;margin-top:5px">Lihat surat pengiktirafan</button>' : '') +
             "</td><td>" +
             esc(r.category) +
             "<br>" +
@@ -1361,6 +1369,8 @@
             '</span><div class="actions" style="margin-top:7px"><button class="btn green approve">Sahkan</button><button class="btn red reject">Tolak</button></div></td>';
           const certButton = tr.querySelector(".certificate");
           if (certButton) certButton.onclick = () => viewCertificate(r.code);
+          const recognitionButton = tr.querySelector(".recognition");
+          if (recognitionButton) recognitionButton.onclick = () => viewCertificate(r.code, "recognition");
           tr.querySelector(".approve").onclick = () =>
             openReview(r, "DISAHKAN");
           tr.querySelector(".reject").onclick = () =>
@@ -1379,10 +1389,10 @@
         }
         return new Blob(parts, { type });
       }
-      async function viewCertificate(code) {
+      async function viewCertificate(code, kind = "certificate") {
         const win = window.open("", "_blank");
         try {
-          const r = await call("getCertificate", { pin, code }, 90000),
+          const r = await call("getCertificate", { pin, code, kind }, 90000),
             url = URL.createObjectURL(b64Blob(r.data, r.type));
           if (win) win.location.href = url;
           else {
